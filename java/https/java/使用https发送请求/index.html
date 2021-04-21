@@ -17,23 +17,21 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"simafanyin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"simafanyin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="一些Java的基础知识点">
-<meta property="og:type" content="article">
-<meta property="og:title" content="java基础及语法">
-<meta property="og:url" content="https://simafanyin.github.io/skills/java/secret/javaSkill/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="使用https发送请求">
+<meta property="og:url" content="https://simafanyin.github.io/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/index.html">
 <meta property="og:site_name" content="司马梵音">
-<meta property="og:description" content="一些Java的基础知识点">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-08T09:09:30.331Z">
-<meta property="article:modified_time" content="2021-03-08T09:54:26.028Z">
+<meta property="article:published_time" content="2021-04-21T03:59:47.000Z">
+<meta property="article:modified_time" content="2021-04-21T04:04:16.485Z">
 <meta property="article:author" content="simafanyin">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://simafanyin.github.io/skills/java/secret/javaSkill/">
+<link rel="canonical" href="https://simafanyin.github.io/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/">
 
 
 <script id="page-configurations">
@@ -46,7 +44,7 @@
   };
 </script>
 
-  <title>java基础及语法 | 司马梵音</title>
+  <title>使用https发送请求 | 司马梵音</title>
   
 
 
@@ -124,9 +122,9 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-categories">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-tags">
@@ -134,9 +132,9 @@
     <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
-        <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-about">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
   </ul>
@@ -167,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://simafanyin.github.io/skills/java/secret/javaSkill/">
+    <link itemprop="mainEntityOfPage" href="https://simafanyin.github.io/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/64x64.ico">
@@ -180,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          java基础及语法
+          使用https发送请求
         </h1>
 
         <div class="post-meta">
@@ -191,7 +189,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-08 17:09:30 / 修改时间：17:54:26" itemprop="dateCreated datePublished" datetime="2021-03-08T17:09:30+08:00">2021-03-08</time>
+              <time title="创建时间：2021-04-21 11:59:47 / 修改时间：12:04:16" itemprop="dateCreated datePublished" datetime="2021-04-21T11:59:47+08:00">2021-04-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,11 +197,15 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/skills/" itemprop="url" rel="index"><span itemprop="name">skills</span></a>
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/skills/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/java/io/" itemprop="url" rel="index"><span itemprop="name">io</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/https/" itemprop="url" rel="index"><span itemprop="name">https</span></a>
                 </span>
             </span>
 
@@ -218,22 +220,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>一些Java的基础知识点  </p>
-<a id="more"></a>
-<h2 id="JDK和JRE有什么区别"><a href="#JDK和JRE有什么区别" class="headerlink" title="JDK和JRE有什么区别"></a>JDK和JRE有什么区别</h2><ul>
-<li><code>jre</code>是Java运行时环境（Java Runtime Enviorment），包括虚拟机和java基础类库。  </li>
-<li><code>jdk</code>是java开发工具（Java Development Kit），包括了<code>jre</code>，还有源码编译器 javac，运行监控工具jconsole，分析工具jvisualvm</li>
-</ul>
-<h2 id="和equals的区别"><a href="#和equals的区别" class="headerlink" title="==和equals的区别"></a>==和equals的区别</h2><ul>
-<li>== 是关系运算符，equals()是方法，都返回Boolean类型  </li>
-<li>Object的 == 和 equals()都是比较的地址，作用相同  <h3 id="nbsp-nbsp-nbsp-nbsp-的作用"><a href="#nbsp-nbsp-nbsp-nbsp-的作用" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp; == 的作用"></a>&nbsp;&nbsp;&nbsp;&nbsp; == 的作用</h3></li>
-<li>基本类型，比较值是否相同  </li>
-<li>引用类型，比较内存地址是否相同  </li>
-<li>不能比较没有父子关系的两个对象  <h3 id="nbsp-nbsp-nbsp-nbsp-equals-的作用"><a href="#nbsp-nbsp-nbsp-nbsp-equals-的作用" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp; equals() 的作用"></a>&nbsp;&nbsp;&nbsp;&nbsp; equals() 的作用</h3></li>
-<li>jdk中的类已经重写过，比较的是内容。  </li>
-<li>自定义的类没有重写equals()，将调用父类，即Object的equals()方法，其使用this == Obj，比较内存地址  </li>
-</ul>
-<h2 id="基本类型和封装类型的-和-equals-比较"><a href="#基本类型和封装类型的-和-equals-比较" class="headerlink" title="基本类型和封装类型的 == 和 equals() 比较"></a>基本类型和封装类型的 == 和 equals() 比较</h2>
+        <a id="more"></a>
     </div>
 
     
@@ -248,7 +235,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://simafanyin.github.io/skills/java/secret/javaSkill/" title="java基础及语法">https://simafanyin.github.io/skills/java/secret/javaSkill/</a>
+    <a href="https://simafanyin.github.io/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/" title="使用https发送请求">https://simafanyin.github.io/java/https/java/使用https发送请求/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -268,8 +255,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/skills/git/git/gitSkills1/" rel="prev" title="git切换项目分支">
-      <i class="fa fa-chevron-left"></i> git切换项目分支
+    <a href="/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/" rel="prev" title="对==和equals()的理解">
+      <i class="fa fa-chevron-left"></i> 对==和equals()的理解
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -330,7 +317,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK%E5%92%8CJRE%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">JDK和JRE有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%92%8Cequals%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">&#x3D;&#x3D;和equals的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nbsp-nbsp-nbsp-nbsp-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &#x3D;&#x3D; 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nbsp-nbsp-nbsp-nbsp-equals-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; equals() 的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%B0%81%E8%A3%85%E7%B1%BB%E5%9E%8B%E7%9A%84-%E5%92%8C-equals-%E6%AF%94%E8%BE%83"><span class="nav-number">3.</span> <span class="nav-text">基本类型和封装类型的 &#x3D;&#x3D; 和 equals() 比较</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -346,16 +332,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

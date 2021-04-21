@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/ohter/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>ohter</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>git切换项目分支</title>
+    <url>/git/git/%E5%88%87%E6%8D%A2%E9%A1%B9%E7%9B%AE%E5%88%86%E6%94%AF/</url>
+    <content><![CDATA[<p>GitHub 官方表示，从2020/10/01开始，该平台所有新建的源代码库，缺省名称为 <code>main</code>。<br>此处记录如何将<code>master</code>分支切换到<code>main</code>分支</p>
+<a id="more"></a>
+<h2 id="1-修改本地缺省分支"><a href="#1-修改本地缺省分支" class="headerlink" title="1.修改本地缺省分支"></a>1.修改本地缺省分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure>
+<h2 id="2-git新建仓库，本地分支由master变为main"><a href="#2-git新建仓库，本地分支由master变为main" class="headerlink" title="2.git新建仓库，本地分支由master变为main"></a>2.git新建仓库，本地分支由master变为main</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -b main    新建main分支，并转至main分支</span><br></pre></td></tr></table></figure>
+<h2 id="3-合并两个分支"><a href="#3-合并两个分支" class="headerlink" title="3.合并两个分支"></a>3.合并两个分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge master</span><br></pre></td></tr></table></figure>
+<h2 id="4-本地add，commit，并将本地main分支推送到远程仓库"><a href="#4-本地add，commit，并将本地main分支推送到远程仓库" class="headerlink" title="4.本地add，commit，并将本地main分支推送到远程仓库"></a>4.本地add，commit，并将本地main分支推送到远程仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add</span><br><span class="line">git commit</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对==和equals()的理解</title>
+    <url>/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="和equals的区别"><a href="#和equals的区别" class="headerlink" title="==和equals的区别"></a>==和equals的区别</h2><ul>
+<li>== 是关系运算符，equals()是方法，都返回Boolean类型  </li>
+<li>Object的 == 和 equals()都是比较的地址，作用相同  <a id="more"></a>
+<h3 id="的作用"><a href="#的作用" class="headerlink" title="== 的作用"></a>== 的作用</h3></li>
+<li>基本类型，比较值是否相同  </li>
+<li>引用类型，比较内存地址是否相同  </li>
+<li>不能比较没有父子关系的两个对象  <h3 id="equals-的作用"><a href="#equals-的作用" class="headerlink" title="equals() 的作用"></a>equals() 的作用</h3></li>
+<li>jdk中的类已经重写过，比较的是内容。  </li>
+<li>自定义的类没有重写equals()，将调用父类，即Object的equals()方法，其使用this == Obj，比较内存地址  </li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>basic</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解Markdown</title>
+    <url>/Markdown/markdown/markdown/</url>
+    <content><![CDATA[<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。<br>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。<br>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。<br>Markdown 编写的文档后缀为 .md, .markdown。</p>
+<a id="more"></a>
+<h1 id="Markdown标题"><a href="#Markdown标题" class="headerlink" title="Markdown标题"></a>Markdown标题</h1><p>两种格式设置标题，倾向第二种</p>
+<h2 id="1-使用-和-标记一级和二级标题"><a href="#1-使用-和-标记一级和二级标题" class="headerlink" title="1.使用 = 和 - 标记一级和二级标题"></a>1.使用 = 和 - 标记一级和二级标题</h2>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一级  二级</span><br><span class="line">&#x3D;&#x3D;&#x3D;   ---</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用-号标记标题"><a href="#2-使用-号标记标题" class="headerlink" title="2.使用 # 号标记标题"></a>2.使用 # 号标记标题</h2> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">一个 # 表示一级 两个 # 表示二级，直到 ###### 六级</span><br><span class="line"># 一级  # 二级</span><br></pre></td></tr></table></figure>
+<h1 id="段落格式"><a href="#段落格式" class="headerlink" title="段落格式"></a>段落格式</h1><p>使用两个以上空格加回车，构成一个段落</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p><em>斜体文本</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*text* 或者 _text_</span><br></pre></td></tr></table></figure>
+<p><strong>粗体文本</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**text** 或者 __text__</span><br></pre></td></tr></table></figure>
+<p><strong><em>粗斜体文本</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">***text*** 或者 ___text___</span><br></pre></td></tr></table></figure>
+<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线</p>
+<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><p><del>abc</del></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~~ abc ~~</span><br></pre></td></tr></table></figure>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>使用2个~~~构成代码块</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~~~ abc ~~~</span><br></pre></td></tr></table></figure>
+<h2 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h2><p>下划线可以通过 HTML 的 u 标签来实现：<br><u>下划线</u></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;u&gt; 下划线 &lt;&#x2F;u&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="#1">1.一级目录</a><br><a href="#1.1">1.1二级目录</a><br><a href="#1.1.1">1.1.1三级目录</a>  </p>
+<h3 id='1'> 一级目录 </h3>
+<h4 id='1.1'> 二级目录 </h4>
+<h5 id='1.1.1'> 三级目录 </h5>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1.一级目录](#1)</span><br><span class="line">[1.1二级目录](#1.1)</span><br><span class="line">[1.1.1三级目录](#1.1.1)</span><br><span class="line">&lt;h3 id&#x3D;&#39;1&#39;&gt; 一级目录 &lt;&#x2F;h3&gt;</span><br><span class="line">&lt;h4 id&#x3D;&#39;1.1&#39;&gt; 二级目录 &lt;&#x2F;h4&gt;</span><br><span class="line">&lt;h5 id&#x3D;&#39;1.1.1&#39;&gt; 三级目录 &lt;&#x2F;h5&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://simafanyin.github.io/">司马梵音的博客</a>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[司马梵音的博客](https:&#x2F;&#x2F;simafanyin.github.io)  </span><br></pre></td></tr></table></figure>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><ul>
+<li>开头一个感叹号。  </li>
+<li>接着一个方括号，里面放上图片的替代文字  </li>
+<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。<br><img src="https://w.wallhaven.cc/full/z8/wallhaven-z8mq8y.jpg" alt="test.png"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![test.png](https:&#x2F;&#x2F;w.wallhaven.cc&#x2F;full&#x2F;z8&#x2F;wallhaven-z8mq8y.jpg)</span><br></pre></td></tr></table></figure>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2>作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。  </li>
+</ul>
+<p>-: 设置内容和标题栏居右对齐。<br>:- 设置内容和标题栏居左对齐。<br>:-: 设置内容和标题栏居中对齐。<br>| 表头1 | 表头2 |<br>| :–: | :—: |<br>| 单元格 | 单元格 |<br>| 单元格 | 单元格 |</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| 表头1 | 表头2 |</span><br><span class="line">| :--: | :---: |</span><br><span class="line">| 单元格 | 单元格 |  </span><br><span class="line">| 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>
+<h2 id="支持的-HTML-元素"><a href="#支持的-HTML-元素" class="headerlink" title="支持的 HTML 元素"></a>支持的 HTML 元素</h2><p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。<br>使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用 &lt;kbd&gt;Ctrl&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Alt&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Del&lt;&#x2F;kbd&gt; 重启电脑</span><br></pre></td></tr></table></figure>
+<h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><p><strong>文本加粗</strong><br>** 正常显示星号 **</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**文本加粗** </span><br><span class="line">\*\* 正常显示星号 \*\*</span><br><span class="line"></span><br><span class="line">一些特殊符号：</span><br><span class="line">\   反斜线</span><br><span class="line">&#96;   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   下划线</span><br><span class="line">&#123;&#125;  花括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  小括号</span><br><span class="line">#   井字号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   感叹号</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解Zookeeper</title>
+    <url>/Zookeeper/zookeeper/understandZookeeper/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>]]></content>
+      <categories>
+        <category>Zookeeper</category>
+      </categories>
+      <tags>
+        <tag>Zookeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用https发送请求</title>
+    <url>/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/</url>
+    <content><![CDATA[<a id="more"></a>]]></content>
+      <categories>
+        <category>java</category>
+        <category>io</category>
+        <category>https</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+</search>
