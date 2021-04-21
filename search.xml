@@ -35,6 +35,29 @@
       </tags>
   </entry>
   <entry>
+    <title>使用https发送请求</title>
+    <url>/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/</url>
+    <content><![CDATA[<p>使用<code>HttpsURLConnection</code>打开链接，使用<code>OutputStream</code>写入请求参数</p>
+<a id="more"></a>
+<h3 id="以发送微信模板为例"><a href="#以发送微信模板为例" class="headerlink" title="以发送微信模板为例"></a>以发送微信模板为例</h3><p>https + JSON 方式传输</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 设置url</span><br><span class="line">String url &#x3D; &quot;https:&#x2F;&#x2F;api.weixin.qq.com&#x2F;cgi-bin&#x2F;message&#x2F;template&#x2F;send?access_token&#x3D;&quot; + accessToken;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打开链接</span><br><span class="line">HttpsURLConnection urlConnection &#x3D;(HttpsURLConnection) new URL(url).openConnection();</span><br><span class="line">&#x2F;&#x2F; 设置post请求方式</span><br><span class="line">urlConnection.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">&#x2F;&#x2F; 设置true，通过http连接，获取其返回数据</span><br><span class="line">urlConnection.setDoOutput(true);</span><br><span class="line">&#x2F;&#x2F; 使用 OutputStream 写入请求参数，其中的jsonString是JSON格式转字符串</span><br><span class="line">urlConnection.getOutputStream().write(jsonString.getBytes(StandardCharsets.UTF_8));</span><br></pre></td></tr></table></figure>
+<h3 id="获取返回消息"><a href="#获取返回消息" class="headerlink" title="获取返回消息"></a>获取返回消息</h3><p>通过<code>InputStream</code>读取返回数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取输入流</span><br><span class="line">InputStream inputstream &#x3D; urlConnection.getInputStream();</span><br><span class="line">StringWriter writer &#x3D; new StringWriter(); &#x2F;&#x2F; 得到返回数据</span><br><span class="line">&#x2F;&#x2F; 读取拷贝输入流数据</span><br><span class="line">IOUtils.copy(inputstream, writer, StandardCharsets.UTF_8);</span><br><span class="line">inputstream.close();</span><br></pre></td></tr></table></figure>
+<p>代码中的 <code>jsonString</code>是JSON格式的。因为约定传输格式为<code>application/json</code>格式，对于不同的传输格式，使用不同的传递参数。对于<code>application/x-www-form-urlencoded</code>这种，代码中<code>jsonString</code>应该是<code>StringBuffer</code>类型。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuffer params &#x3D; new StringBuffer();</span><br><span class="line">params.append(&quot;username&#x3D;&quot;).append(URLEncoder.encode(username, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;password&#x3D;&quot;).append(URLEncoder.encode(password, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;toPhoneNo&#x3D;&quot;).append(URLEncoder.encode(phoneNum, &quot;UTF-8&quot;));</span><br><span class="line">try (OutputStreamWriter out &#x3D; new OutputStreamWriter(urlConnection.getOutputStream(), &quot;UTF-8&quot;)) &#123;</span><br><span class="line">		out.write(params.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取返回数据 <code>urlConnection.getInputStream()</code>会抛出<code>IOException</code>的异常，需要在<code>catch</code>中捕获，并记录日志。</p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>对于实现了<code>Closeable</code>接口的类，引用时可以使用<code>try()</code>包裹，可以自动关闭。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>io</category>
+        <category>https</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>对==和equals()的理解</title>
     <url>/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h2 id="和equals的区别"><a href="#和equals的区别" class="headerlink" title="==和equals的区别"></a>==和equals的区别</h2><ul>
@@ -117,19 +140,6 @@
       </categories>
       <tags>
         <tag>Zookeeper</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用https发送请求</title>
-    <url>/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/</url>
-    <content><![CDATA[<a id="more"></a>]]></content>
-      <categories>
-        <category>java</category>
-        <category>io</category>
-        <category>https</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
 </search>
