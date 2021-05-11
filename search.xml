@@ -80,6 +80,50 @@
       </tags>
   </entry>
   <entry>
+    <title>对HashMap的理解</title>
+    <url>/java/hashMap/java/%E5%AF%B9HashMap%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<p>从存储结构，索引，扩容，put方法来简单说明</p>
+<a id="more"></a>
+
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>jdk1.7中，由数组 + 链表组成，数组是hashMap的主体，链表用于处理哈希冲突。<br>jdk1.8中，由数组 + 链表 + 红黑树组成。红黑树复杂度为O(logn)，链表是O(n)，链表过长会影响hashMap的性能。链表和红黑树在满足一定条件时会进行转换。</p>
+<ul>
+<li>当链表超过8，且数据（数组长度）大于64时，转为红黑树。</li>
+<li>链表超过8，数据长度小于64时，会对数组进行扩容。  </li>
+</ul>
+<p>红黑树需要左旋，右旋，变色来保持平衡，单链不需要。链表不超过8时，链表结构可以保证查询性能，大于8时，使用红黑树提高搜索性能，但新增节点时效率会变慢。</p>
+<h2 id="索引计算"><a href="#索引计算" class="headerlink" title="索引计算"></a>索引计算</h2><p>先根据key值，计算出hashCode值，然后再计算出hash值，通过hash &amp; (length -     1) 计算出下标。<br><code>jdk1.8中异或其右移16位</code><br>jdk1.8中异或其右移16位的值，优化了高位运算的算法，可以在数组长度较小的时候，也可以保证高低bit都参与到hash的计算中，同时不会有太大的开销。<br><code>hash值与length-1相与（hash &amp; (length - 1)）</code><br>数组的长度都是2的n次方，hash &amp; (length - 1)等价于对hash取模，即hash%length，但&amp;比%更高效。<br><code>HashMap数组长度是2的幂次方</code><br>有助于减少hash冲突，不浪费空间。二进制为11111…方便与操作，实际使用中，其构造函数自动将传入的数组大小取最近的2的n次方，大于等于当前传入值。  </p>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>HashMap的容量超过负载因子定义的容量后，数组扩大为原来的2倍，将原来的对象放到新的数组中。<br>1.8中做了优化，元素会在原来的位置，或者在原来位置 + 原Hash表的长度，不需要重新计算hash，只需要看原来的hash中新增的bit是0还是1。0的话索引不变，1的话 + 原哈希表长度。</p>
+<h2 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h2><ul>
+<li>根据key值计算hash值，找到其在数组中的存储的下标  </li>
+<li>判断数组是否为空，调用resize初始化</li>
+<li>没有hash冲突，直接放在对应的数组下标中</li>
+<li>有hash冲突，key存在，则覆盖value</li>
+<li>有hash冲突，key不存在，是红黑树，就将节点挂在树上</li>
+<li>有hash冲突，key不存在，是链表，判断链表是否大于8，如果大于8，数组容量小于64，进行扩容，大于8，数组容量大于64，转为红黑树；否则使用头插法，在链表中加入键值对。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>hashMap</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组的理解</title>
+    <url>/java/%E6%95%B0%E7%BB%84/java/%E6%95%B0%E7%BB%84%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>了解Markdown</title>
     <url>/Markdown/markdown/markdown/</url>
     <content><![CDATA[<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。<br>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。<br>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。<br>Markdown 编写的文档后缀为 .md, .markdown。</p>
