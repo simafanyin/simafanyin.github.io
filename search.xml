@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/ohter/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>ohter</category>
-      </categories>
-  </entry>
-  <entry>
     <title>git切换项目分支</title>
     <url>/git/git/%E5%88%87%E6%8D%A2%E9%A1%B9%E7%9B%AE%E5%88%86%E6%94%AF/</url>
     <content><![CDATA[<p>GitHub 官方表示，从2020/10/01开始，该平台所有新建的源代码库，缺省名称为 <code>main</code>。<br>此处记录如何将<code>master</code>分支切换到<code>main</code>分支</p>
 <a id="more"></a>
+
 <h2 id="1-修改本地缺省分支"><a href="#1-修改本地缺省分支" class="headerlink" title="1.修改本地缺省分支"></a>1.修改本地缺省分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure>
 <h2 id="2-git新建仓库，本地分支由master变为main"><a href="#2-git新建仓库，本地分支由master变为main" class="headerlink" title="2.git新建仓库，本地分支由master变为main"></a>2.git新建仓库，本地分支由master变为main</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -b main    新建main分支，并转至main分支</span><br></pre></td></tr></table></figure>
 <h2 id="3-合并两个分支"><a href="#3-合并两个分支" class="headerlink" title="3.合并两个分支"></a>3.合并两个分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge master</span><br></pre></td></tr></table></figure>
-<h2 id="4-本地add，commit，并将本地main分支推送到远程仓库"><a href="#4-本地add，commit，并将本地main分支推送到远程仓库" class="headerlink" title="4.本地add，commit，并将本地main分支推送到远程仓库"></a>4.本地add，commit，并将本地main分支推送到远程仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add</span><br><span class="line">git commit</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="4-本地add，commit，并将本地main分支推送到远程仓库"><a href="#4-本地add，commit，并将本地main分支推送到远程仓库" class="headerlink" title="4.本地add，commit，并将本地main分支推送到远程仓库"></a>4.本地add，commit，并将本地main分支推送到远程仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add</span><br><span class="line">git commit</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
       <categories>
         <category>git</category>
       </categories>
@@ -81,8 +67,8 @@
   </entry>
   <entry>
     <title>对HashMap的理解</title>
-    <url>/java/hashMap/java/%E5%AF%B9HashMap%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<p>从存储结构，索引，扩容，put方法来简单说明</p>
+    <url>/java/HashMap/java/%E5%AF%B9HashMap%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<p>从存储结构，索引，扩容，put方法，线程安全来简单说明，并讲述相关的如：HashTable，ConcurrentHashMap等</p>
 <a id="more"></a>
 
 <h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>jdk1.7中，由数组 + 链表组成，数组是hashMap的主体，链表用于处理哈希冲突。<br>jdk1.8中，由数组 + 链表 + 红黑树组成。红黑树复杂度为O(logn)，链表是O(n)，链表过长会影响hashMap的性能。链表和红黑树在满足一定条件时会进行转换。</p>
@@ -101,10 +87,10 @@
 <li>有hash冲突，key不存在，是红黑树，就将节点挂在树上</li>
 <li>有hash冲突，key不存在，是链表，判断链表是否大于8，如果大于8，数组容量小于64，进行扩容，大于8，数组容量大于64，转为红黑树；否则使用头插法，在链表中加入键值对。</li>
 </ul>
-]]></content>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2>]]></content>
       <categories>
         <category>java</category>
-        <category>hashMap</category>
+        <category>HashMap</category>
       </categories>
       <tags>
         <tag>java</tag>
@@ -154,12 +140,30 @@
 <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://simafanyin.github.io/">司马梵音的博客</a>  </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[司马梵音的博客](https:&#x2F;&#x2F;simafanyin.github.io)  </span><br></pre></td></tr></table></figure>
 <h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><ul>
-<li>开头一个感叹号。  </li>
-<li>接着一个方括号，里面放上图片的替代文字  </li>
-<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。<br><img src="https://w.wallhaven.cc/full/z8/wallhaven-z8mq8y.jpg" alt="test.png"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![test.png](https:&#x2F;&#x2F;w.wallhaven.cc&#x2F;full&#x2F;z8&#x2F;wallhaven-z8mq8y.jpg)</span><br></pre></td></tr></table></figure>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2>作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。  </li>
+<li><p>开头一个感叹号。  </p>
+</li>
+<li><p>接着一个方括号，里面放上图片的替代文字  </p>
+</li>
+<li><p>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。<br><img src="/source/images/markdown/wallhaven-z8mq8y.jpg" alt="img"></p>
+</li>
 </ul>
-<p>-: 设置内容和标题栏居右对齐。<br>:- 设置内容和标题栏居左对齐。<br>:-: 设置内容和标题栏居中对齐。<br>| 表头1 | 表头2 |<br>| :–: | :—: |<br>| 单元格 | 单元格 |<br>| 单元格 | 单元格 |</p>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。<br>-: 设置内容和标题栏居右对齐。<br>:- 设置内容和标题栏居左对齐。<br>:-: 设置内容和标题栏居中对齐。  </p>
+<table>
+<thead>
+<tr>
+<th align="center">表头1</th>
+<th align="center">表头2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="center">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody></table>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| 表头1 | 表头2 |</span><br><span class="line">| :--: | :---: |</span><br><span class="line">| 单元格 | 单元格 |  </span><br><span class="line">| 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>
 <h2 id="支持的-HTML-元素"><a href="#支持的-HTML-元素" class="headerlink" title="支持的 HTML 元素"></a>支持的 HTML 元素</h2><p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。<br>使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用 &lt;kbd&gt;Ctrl&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Alt&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Del&lt;&#x2F;kbd&gt; 重启电脑</span><br></pre></td></tr></table></figure>
