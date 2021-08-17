@@ -140,12 +140,10 @@
 <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://simafanyin.github.io/">司马梵音的博客</a>  </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[司马梵音的博客](https:&#x2F;&#x2F;simafanyin.github.io)  </span><br></pre></td></tr></table></figure>
 <h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><ul>
-<li><p>开头一个感叹号。  </p>
-</li>
-<li><p>接着一个方括号，里面放上图片的替代文字  </p>
-</li>
-<li><p>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。<br><img src="/source/images/markdown/wallhaven-z8mq8y.jpg" alt="img"></p>
-</li>
+<li>开头一个感叹号。  </li>
+<li>接着一个方括号，里面放上图片的替代文字  </li>
+<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。<br><img src="/images/markdown/v2-17b972c6b32398e3929c117ea00f79f4_b.jpg" alt="img"></li>
+<li><img src="/images/markdown/wallhaven-z8mq8y.jpg" alt="img"></li>
 </ul>
 <h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。<br>-: 设置内容和标题栏居右对齐。<br>:- 设置内容和标题栏居左对齐。<br>:-: 设置内容和标题栏居中对齐。  </p>
 <table>
