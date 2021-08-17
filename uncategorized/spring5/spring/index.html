@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"simafanyin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="&#x3D;&#x3D;和equals的区别 &#x3D;&#x3D; 是关系运算符，equals()是方法，都返回Boolean类型   Object的 &#x3D;&#x3D; 和 equals()都是比较的地址，作用相同">
+  <meta name="description" content="1、Spring1.1 简介 Spring是一个开源框架，它由 Rod Johnson 创建，他是音乐家。它是为了解决企业应用开发的复杂性而创建的。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。然而，Spring的用途不仅限于服务器端的开发。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。 2002，首次推出Spring框架的雏形，in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="对&#x3D;&#x3D;和equals()的理解">
-<meta property="og:url" content="https://simafanyin.github.io/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:title" content="spring">
+<meta property="og:url" content="https://simafanyin.github.io/uncategorized/spring5/spring/index.html">
 <meta property="og:site_name" content="司马梵音">
-<meta property="og:description" content="&#x3D;&#x3D;和equals的区别 &#x3D;&#x3D; 是关系运算符，equals()是方法，都返回Boolean类型   Object的 &#x3D;&#x3D; 和 equals()都是比较的地址，作用相同">
+<meta property="og:description" content="1、Spring1.1 简介 Spring是一个开源框架，它由 Rod Johnson 创建，他是音乐家。它是为了解决企业应用开发的复杂性而创建的。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。然而，Spring的用途不仅限于服务器端的开发。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。 2002，首次推出Spring框架的雏形，in">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-08T09:09:30.331Z">
-<meta property="article:modified_time" content="2021-04-28T04:15:36.563Z">
+<meta property="og:image" content="https://simafanyin.github.io/images/spring/seven.png">
+<meta property="article:published_time" content="2021-08-17T02:53:25.000Z">
+<meta property="article:modified_time" content="2021-08-17T04:48:46.533Z">
 <meta property="article:author" content="simafanyin">
-<meta property="article:tag" content="java">
+<meta property="article:tag" content="java, mysql, git, spring, springboot, zookeeper">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://simafanyin.github.io/images/spring/seven.png">
 
-<link rel="canonical" href="https://simafanyin.github.io/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/">
+<link rel="canonical" href="https://simafanyin.github.io/uncategorized/spring5/spring/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>对==和equals()的理解 | 司马梵音</title>
+  <title>spring | 司马梵音</title>
   
 
 
@@ -167,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://simafanyin.github.io/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="https://simafanyin.github.io/uncategorized/spring5/spring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/64x64.ico">
@@ -180,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          对==和equals()的理解
+          spring
         </h1>
 
         <div class="post-meta">
@@ -189,28 +191,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-03-08 17:09:30" itemprop="dateCreated datePublished" datetime="2021-03-08T17:09:30+08:00">2021-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-28 12:15:36" itemprop="dateModified" datetime="2021-04-28T12:15:36+08:00">2021-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/basic/" itemprop="url" rel="index"><span itemprop="name">basic</span></a>
-                </span>
+              <time title="创建时间：2021-08-17 10:53:25 / 修改时间：12:48:46" itemprop="dateCreated datePublished" datetime="2021-08-17T10:53:25+08:00">2021-08-17</time>
             </span>
 
           
@@ -224,17 +207,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="和equals的区别"><a href="#和equals的区别" class="headerlink" title="==和equals的区别"></a>==和equals的区别</h2><ul>
-<li>== 是关系运算符，equals()是方法，都返回Boolean类型  </li>
-<li>Object的 == 和 equals()都是比较的地址，作用相同  <a id="more"></a>
-<h3 id="的作用"><a href="#的作用" class="headerlink" title="== 的作用"></a>== 的作用</h3></li>
-<li>基本类型，比较值是否相同  </li>
-<li>引用类型，比较内存地址是否相同  </li>
-<li>不能比较没有父子关系的两个对象  <h3 id="equals-的作用"><a href="#equals-的作用" class="headerlink" title="equals() 的作用"></a>equals() 的作用</h3></li>
-<li>jdk中的类已经重写过，比较的是内容。  </li>
-<li>自定义的类没有重写equals()，将调用父类，即Object的equals()方法，其使用this == Obj，比较内存地址  </li>
+        <h1 id="1、Spring"><a href="#1、Spring" class="headerlink" title="1、Spring"></a>1、Spring</h1><h2 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h2><ul>
+<li>Spring是一个开源框架，它由 <em>Rod Johnson</em> 创建，他是音乐家。它是为了解决企业应用开发的复杂性而创建的。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。然而，Spring的用途不仅限于服务器端的开发。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。</li>
+<li>2002，首次推出Spring框架的雏形，<a target="_blank" rel="noopener" href="https://www.interface21.io/">interface21</a> 框架。</li>
+<li>2004年3月24号，Spring框架是以interface21框架为基础,经过重新设计,并不断丰富其内涵,于<em>2004年3月24</em>日,发布了1.0正式版本。</li>
+<li>理念：使现有的技术更加容易使用，本身是一个大杂烩，整合了现有的技术框架</li>
+<li>SSH： Struct2 + Spring + Hibernate</li>
+<li>SSM：SpringMVC + Spring + Mybatis</li>
 </ul>
+<a id="more"></a>
 
+<p>官网：<a target="_blank" rel="noopener" href="https://spring.io/">https://spring.io/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- spring的包，包含了其他的包 --&gt;</span><br><span class="line">&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;org.springframework&#x2F;spring-webmvc --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-webmvc&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.3.8&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 连接数据库 --&gt;</span><br><span class="line">&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;org.springframework&#x2F;spring-jdbc --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-jdbc&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.3.8&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="1-2-优点"><a href="#1-2-优点" class="headerlink" title="1.2 优点"></a>1.2 优点</h2><ul>
+<li>Spring是一个开源的免费的框架（容器）</li>
+<li>Spring是一个轻量级的，非入侵式的框架</li>
+<li>控制反转（IOC），面向切面（AOP）</li>
+<li>支持事务的处理，对框架整合的支持</li>
+</ul>
+<p>==总结：Spring就是一个轻量级的，控制反转（IOC），面向切面（AOP）的框架==</p>
+<h2 id="1-3-组成"><a href="#1-3-组成" class="headerlink" title="1.3 组成"></a>1.3 组成</h2><p><img src="/images/spring/seven.png" alt="img"></p>
+<h2 id="1-4-拓展"><a href="#1-4-拓展" class="headerlink" title="1.4 拓展"></a>1.4 拓展</h2><p>现代java的开发就是Spring的开发</p>
+<ul>
+<li>Spring Boot<ul>
+<li>一个快速开发的脚手架</li>
+<li>基于SpringBoot可以快速的开发单个微服务</li>
+<li>约定大于配置</li>
+</ul>
+</li>
+<li>Spring Cloud<ul>
+<li>基于SpringBoot实现</li>
+</ul>
+</li>
+</ul>
+<p>学习SpringBoot的前提，是完全掌握Spring及SpringMVC。</p>
+<p>后续…</p>
+<h1 id="2、IOC理论推导"><a href="#2、IOC理论推导" class="headerlink" title="2、IOC理论推导"></a>2、IOC理论推导</h1>
     </div>
 
     
@@ -249,7 +257,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://simafanyin.github.io/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/" title="对&#x3D;&#x3D;和equals()的理解">https://simafanyin.github.io/java/basic/java/对==和equals()的理解/</a>
+    <a href="https://simafanyin.github.io/uncategorized/spring5/spring/" title="spring">https://simafanyin.github.io/uncategorized/spring5/spring/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -259,9 +267,6 @@
 
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/java/" rel="tag"># java</a>
-          </div>
 
         
 
@@ -269,12 +274,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/git/git/%E5%88%87%E6%8D%A2%E9%A1%B9%E7%9B%AE%E5%88%86%E6%94%AF/" rel="prev" title="git切换项目分支">
-      <i class="fa fa-chevron-left"></i> git切换项目分支
+    <a href="/java/HashMap/java/%E5%AF%B9HashMap%E7%9A%84%E7%90%86%E8%A7%A3/" rel="prev" title="对HashMap的理解">
+      <i class="fa fa-chevron-left"></i> 对HashMap的理解
     </a></div>
       <div class="post-nav-item">
-    <a href="/java/HashMap/java/%E5%AF%B9HashMap%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="对HashMap的理解">
-      对HashMap的理解 <i class="fa fa-chevron-right"></i>
+    <a href="/java/%E6%95%B0%E7%BB%84/java/%E6%95%B0%E7%BB%84%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="数组的理解">
+      数组的理解 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -334,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%92%8Cequals%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">&#x3D;&#x3D;和equals的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">&#x3D;&#x3D; 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equals-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">equals() 的作用</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81Spring"><span class="nav-number">1.</span> <span class="nav-text">1、Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E7%BB%84%E6%88%90"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E6%8B%93%E5%B1%95"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 拓展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2%E3%80%81IOC%E7%90%86%E8%AE%BA%E6%8E%A8%E5%AF%BC"><span class="nav-number">2.</span> <span class="nav-text">2、IOC理论推导</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
