@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>git切换项目分支</title>
-    <url>/git/git/%E5%88%87%E6%8D%A2%E9%A1%B9%E7%9B%AE%E5%88%86%E6%94%AF/</url>
+    <url>/git/6997b4f8/</url>
     <content><![CDATA[<p>GitHub 官方表示，从2020/10/01开始，该平台所有新建的源代码库，缺省名称为 <code>main</code>。<br>此处记录如何将<code>master</code>分支切换到<code>main</code>分支</p>
 <a id="more"></a>
 
@@ -21,8 +21,31 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo自定义指令</title>
+    <url>/hexo/other/2863b4a4/</url>
+    <content><![CDATA[<h3 id="HEXO创建文件指令"><a href="#HEXO创建文件指令" class="headerlink" title="HEXO创建文件指令"></a>HEXO创建文件指令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [layout] --path ..&#x2F;_self&#x2F;test&#x2F;h title</span><br></pre></td></tr></table></figure>
+<p>layout: 模板，缺省self</p>
+<p>-path, -p  文件地址</p>
+<p>title：文章标题</p>
+<a id="more"></a>
+
+<h3 id="Typora设置"><a href="#Typora设置" class="headerlink" title="Typora设置"></a>Typora设置</h3><p>根目录为source</p>
+<p><img src="/images/markdown/image-20211224103711151.png" alt="image-20211224103711151"></p>
+<p><img src="/images/hexo/image-20211224121834233.png" alt="image-20211224121834233"></p>
+<p><img src="/images/hexo/image-20211224121928029.png" alt="image-20211224121928029"></p>
+<p><img src="/images/hexo/image-20211224121944216.png" alt="image-20211224121944216"></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用https发送请求</title>
-    <url>/java/https/java/%E4%BD%BF%E7%94%A8https%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82/</url>
+    <url>/java/https/b4ec0f74/</url>
     <content><![CDATA[<p>使用<code>HttpsURLConnection</code>打开链接，使用<code>OutputStream</code>写入请求参数</p>
 <a id="more"></a>
 <h3 id="以发送微信模板为例"><a href="#以发送微信模板为例" class="headerlink" title="以发送微信模板为例"></a>以发送微信模板为例</h3><p>https + JSON 方式传输</p>
@@ -45,7 +68,7 @@
   </entry>
   <entry>
     <title>对==和equals()的理解</title>
-    <url>/java/basic/java/%E5%AF%B9==%E5%92%8Cequals()%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <url>/java/basic/48a35850/</url>
     <content><![CDATA[<h2 id="和equals的区别"><a href="#和equals的区别" class="headerlink" title="==和equals的区别"></a>==和equals的区别</h2><ul>
 <li>== 是关系运算符，equals()是方法，都返回Boolean类型  </li>
 <li>Object的 == 和 equals()都是比较的地址，作用相同  <a id="more"></a>
@@ -67,7 +90,7 @@
   </entry>
   <entry>
     <title>对HashMap的理解</title>
-    <url>/java/HashMap/java/%E5%AF%B9HashMap%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <url>/java/HashMap/d85f3cec/</url>
     <content><![CDATA[<p>从存储结构，索引，扩容，put方法，线程安全来简单说明，并讲述相关的如：HashTable，ConcurrentHashMap等</p>
 <a id="more"></a>
 
@@ -97,8 +120,21 @@
       </tags>
   </entry>
   <entry>
+    <title>数组的理解</title>
+    <url>/java/%E6%95%B0%E7%BB%84/17fb9b1e/</url>
+    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>了解Markdown</title>
-    <url>/Markdown/markdown/markdown/</url>
+    <url>/Markdown/d4be2ab6/</url>
     <content><![CDATA[<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。<br>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。<br>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。<br>Markdown 编写的文档后缀为 .md, .markdown。</p>
 <a id="more"></a>
 <h1 id="Markdown标题"><a href="#Markdown标题" class="headerlink" title="Markdown标题"></a>Markdown标题</h1><p>两种格式设置标题，倾向第二种</p>
@@ -154,8 +190,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用 &lt;kbd&gt;Ctrl&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Alt&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Del&lt;&#x2F;kbd&gt; 重启电脑</span><br></pre></td></tr></table></figure>
 <h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><p><strong>文本加粗</strong><br>** 正常显示星号 **</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**文本加粗** </span><br><span class="line">\*\* 正常显示星号 \*\*</span><br><span class="line"></span><br><span class="line">一些特殊符号：</span><br><span class="line">\   反斜线</span><br><span class="line">&#96;   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   下划线</span><br><span class="line">&#123;&#125;  花括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  小括号</span><br><span class="line">#   井字号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   感叹号</span><br></pre></td></tr></table></figure>
-<h2 id="HEXO创建文件指令"><a href="#HEXO创建文件指令" class="headerlink" title="HEXO创建文件指令"></a>HEXO创建文件指令</h2><p>hexo new 文件夹名 –path 文件夹名/文件名 “文件标题（通常与文件名一致）” ————在缺省主题 _post目录下创建<br>hexo new page –path 文件夹名/文件名 “文件标题（通常与文件名一致）” ————在source下创建<br>hexo new page –path 文件夹名/文件名 ————无文件标题时，在_post目录下，标题名为page</p>
-<h2 id="使用Typora编写md文件"><a href="#使用Typora编写md文件" class="headerlink" title="使用Typora编写md文件"></a>使用Typora编写md文件</h2><p><img src="../../images/markdown/image-20211224103711151.png" alt="image-20211224103711151"></p>
 <h2 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h2><p>使用Typora编写md文件比较方便，详情访问<a href="https://www.typora.io/">Typora官网</a></p>
 ]]></content>
       <categories>
@@ -167,7 +201,7 @@
   </entry>
   <entry>
     <title>mqtt简介</title>
-    <url>/uncategorized/mqtt/mqtt%E7%AE%80%E4%BB%8B/</url>
+    <url>/Mqtt/undefined/</url>
     <content><![CDATA[<p>“MQTT 是客户端服务器发布/订阅消息传输协议。它重量轻、开放、简单，并且设计得易于实施。这些特性使其非常适合在许多情况下使用，包括受限环境，例如机器对机器 (M2M) 和物联网 (IoT) 环境中的通信，在这些环境中需要少量代码占用空间和/或网络带宽非常宝贵。 “</p>
 <p><em>引用自官方<a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">MQTT 3.1.1 规范</a></em></p>
 <a id="more"></a>
@@ -206,23 +240,17 @@
 <p><img src="/images/mqtt/image-20211222171611919.png" alt="image-20211222171611919"></p>
 <h4 id="ClientId"><a href="#ClientId" class="headerlink" title="ClientId"></a>ClientId</h4><p>(ClientId)<strong>标识</strong>连接到 MQTT 代理的<strong>每个 MQTT 客户端</strong>。Broker 使用 ClientId 来标识客户端和客户端的当前状态。因此，这个 Id 对于每个客户端和 Broker 应该是唯一的。在 MQTT 3.1.1 中，如果您不需要Broker 持有状态，您可以发送一个空的 ClientId。空的 ClientId 导致连接没有任何状态。在这种情况下，clean session 标志必须设置为 true，否则Broker 将拒绝连接。</p>
 <h3 id="发布、订阅和取消订阅"><a href="#发布、订阅和取消订阅" class="headerlink" title="发布、订阅和取消订阅"></a>发布、订阅和取消订阅</h3><h2 id="MQTT特性"><a href="#MQTT特性" class="headerlink" title="MQTT特性"></a>MQTT特性</h2><h2 id="MQTT特殊"><a href="#MQTT特殊" class="headerlink" title="MQTT特殊"></a>MQTT特殊</h2>]]></content>
-  </entry>
-  <entry>
-    <title>数组的理解</title>
-    <url>/java/%E6%95%B0%E7%BB%84/java/%E6%95%B0%E7%BB%84%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
-]]></content>
       <categories>
-        <category>java</category>
-        <category>数组</category>
+        <category>Mqtt</category>
       </categories>
       <tags>
-        <tag>java</tag>
+        <tag>Mqtt</tag>
+        <tag>IOT</tag>
       </tags>
   </entry>
   <entry>
     <title>spring</title>
-    <url>/uncategorized/spring5/spring/</url>
+    <url>/Spring/6b3e1469/</url>
     <content><![CDATA[<h1 id="1、Spring"><a href="#1、Spring" class="headerlink" title="1、Spring"></a>1、Spring</h1><h2 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h2><ul>
 <li>Spring是一个开源框架，它由 <em>Rod Johnson</em> 创建，他是音乐家。它是为了解决企业应用开发的复杂性而创建的。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。然而，Spring的用途不仅限于服务器端的开发。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。</li>
 <li>2002，首次推出Spring框架的雏形，<a href="https://www.interface21.io/">interface21</a> 框架。</li>
@@ -359,23 +387,25 @@
 <p>类属性使用，或者set方法上使用</p>
 <p>使用Autowired，不需要编写set方法，前提是自动装配的属性在IOC(String) 容器中存在，且符合类型ByType</p>
 ]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+        <tag>Java</tag>
+      </tags>
   </entry>
   <entry>
     <title>springBoot</title>
-    <url>/uncategorized/spring5/springBoot/</url>
+    <url>/SpringBoot/207b1172/</url>
     <content><![CDATA[<a id="more"></a>]]></content>
-  </entry>
-  <entry>
-    <title>hello</title>
-    <url>/uncategorized/test/hello/</url>
-    <content><![CDATA[<p>ffffffff</p>
-<p>插入图片</p>
-<p><img src="../../images/hello/image-20211224103430258.png" alt="image-20211224103430258"></p>
-]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
   </entry>
   <entry>
     <title>了解Zookeeper</title>
-    <url>/Zookeeper/zookeeper/understandZookeeper/</url>
+    <url>/Zookeeper/219b9110/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>]]></content>
       <categories>
         <category>Zookeeper</category>
