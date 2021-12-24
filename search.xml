@@ -97,19 +97,6 @@
       </tags>
   </entry>
   <entry>
-    <title>数组的理解</title>
-    <url>/java/%E6%95%B0%E7%BB%84/java/%E6%95%B0%E7%BB%84%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>数组</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>了解Markdown</title>
     <url>/Markdown/markdown/markdown/</url>
     <content><![CDATA[<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。<br>Markdown 语言在 2004 由约翰·格鲁伯（英语：John Gruber）创建。<br>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。<br>Markdown 编写的文档后缀为 .md, .markdown。</p>
@@ -167,8 +154,8 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用 &lt;kbd&gt;Ctrl&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Alt&lt;&#x2F;kbd&gt;+&lt;kbd&gt;Del&lt;&#x2F;kbd&gt; 重启电脑</span><br></pre></td></tr></table></figure>
 <h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><p><strong>文本加粗</strong><br>** 正常显示星号 **</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**文本加粗** </span><br><span class="line">\*\* 正常显示星号 \*\*</span><br><span class="line"></span><br><span class="line">一些特殊符号：</span><br><span class="line">\   反斜线</span><br><span class="line">&#96;   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   下划线</span><br><span class="line">&#123;&#125;  花括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  小括号</span><br><span class="line">#   井字号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   感叹号</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="HEXO创建文件指令"><a href="#HEXO创建文件指令" class="headerlink" title="HEXO创建文件指令"></a>HEXO创建文件指令</h2><p>hexo new 文件夹名 –path 文件夹名/文件名 “文件标题（通常与文件名一致）” ————在缺省主题 _post目录下创建<br>hexo new page –path 文件夹名/文件名 “文件标题（通常与文件名一致）” ————在source下创建<br>hexo new page –path 文件夹名/文件名 ————无文件标题时，在_post目录下，标题名为page</p>
+<h2 id="使用Typora编写md文件"><a href="#使用Typora编写md文件" class="headerlink" title="使用Typora编写md文件"></a>使用Typora编写md文件</h2><p><img src="../../images/markdown/image-20211224103711151.png" alt="image-20211224103711151"></p>
 <h2 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h2><p>使用Typora编写md文件比较方便，详情访问<a href="https://www.typora.io/">Typora官网</a></p>
 ]]></content>
       <categories>
@@ -176,6 +163,61 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mqtt简介</title>
+    <url>/uncategorized/mqtt/mqtt%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<p>“MQTT 是客户端服务器发布/订阅消息传输协议。它重量轻、开放、简单，并且设计得易于实施。这些特性使其非常适合在许多情况下使用，包括受限环境，例如机器对机器 (M2M) 和物联网 (IoT) 环境中的通信，在这些环境中需要少量代码占用空间和/或网络带宽非常宝贵。 “</p>
+<p><em>引用自官方<a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">MQTT 3.1.1 规范</a></em></p>
+<a id="more"></a>
+
+<h2 id="mqtt基础"><a href="#mqtt基础" class="headerlink" title="mqtt基础"></a>mqtt基础</h2><h3 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h3><p>发布/订阅模式（也称为发布/订阅）提供了传统客户端-服务器架构的替代方案。在客户端-服务器模型中，客户端直接与端点通信。发布/<strong>订阅</strong>模型<strong>将发送消息的客户端（发布者）与接收消息的客户端（订阅者）分离</strong>。发布者和订阅者从不直接相互联系。事实上，他们甚至不知道另一个存在。<strong>它们之间的连接由第三个组件（代理）处理</strong>。代理的工作是过滤所有传入的消息并将它们正确地分发给订阅者。</p>
+<p><img src="/images/mqtt/image-20211222141005739.png" alt="image-20211222141005739"></p>
+<p>pub/sub 最重要的方面是消息的发布者与接收者（订阅者）的解耦。这种解耦有几个维度：</p>
+<ul>
+<li><strong>空间解耦：</strong>发布者和订阅者不需要相互了解（例如，不交换IP地址和端口）。</li>
+<li><strong>时间解耦：</strong>发布者和订阅者不需要同时运行。</li>
+<li><strong>同步解耦：</strong>两个组件的操作在发布或接收时不需要中断。</li>
+</ul>
+<p>总之，发布/订阅模型消除了消息发布者和接收者/订阅者之间的直接通信。代理的过滤活动可以控制哪个客户端/订阅者接收哪个消息。解耦包括三个维度：空间、时间和同步。</p>
+<h4 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h4><p><strong>发布/订阅比传统的客户端-服务器方法更好地扩展</strong>。这是因为代理上的操作可以高度并行化，并且可以以事件驱动的方式处理消息。消息缓存和消息的智能路由通常是提高可扩展性的决定性因素。尽管如此，扩展到数百万个连接是一个挑战。可以通过集群代理节点实现如此高水平的连接，以使用负载平衡器将负载分布到更多的单个服务器上。</p>
+<h4 id="消息过滤"><a href="#消息过滤" class="headerlink" title="消息过滤"></a>消息过滤</h4><h5 id="选项-1：基于主题的过滤"><a href="#选项-1：基于主题的过滤" class="headerlink" title="选项 1：基于主题的过滤"></a>选项 1：基于主题的过滤</h5><p>此过滤基于属于每条消息的主题或<a href="https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices">主题</a>。接收客户端向代理订阅感兴趣的主题。从那时起，代理确保接收客户端获取所有发布到订阅主题的消息。通常，主题是具有分层结构的字符串，允许基于有限数量的表达式进行过滤。</p>
+<h5 id="选项-2：基于内容的过滤"><a href="#选项-2：基于内容的过滤" class="headerlink" title="选项 2：基于内容的过滤"></a>选项 2：基于内容的过滤</h5><p>在基于内容的过滤中，代理根据特定的内容过滤语言过滤消息。接收客户端订阅过滤他们感兴趣的消息查询。这种方法的一个显着缺点是必须事先知道消息的内容，不能加密或轻易更改。</p>
+<h5 id="选项-3：基于类型的过滤"><a href="#选项-3：基于类型的过滤" class="headerlink" title="选项 3：基于类型的过滤"></a>选项 3：基于类型的过滤</h5><p>当使用面向对象的语言时，基于消息（事件）的类型/类进行过滤是一种常见做法。例如，订阅者可以收听所有类型为 Exception 或任何子类型的消息。</p>
+<h4 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h4><p>MQTT 具有三个服务质量 (QoS) 级别</p>
+<p><strong>MQTT 体现了我们提到的 pub/sub 的所有方面</strong>：</p>
+<ul>
+<li>MQTT 在空间上分离了发布者和订阅者。要发布或接收消息，发布者和订阅者只需要知道代理的主机名/IP 和端口。</li>
+<li>MQTT 按时间解耦。尽管大多数 MQTT 用例都近乎实时地传递消息，但如果需要，代理可以为不在线的客户端存储消息。（必须满足两个条件才能存储消息：客户端已连接到持久会话并订阅了<a href="https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/">服务质量</a>大于 0 的主题）。</li>
+<li>MQTT 异步工作。由于大多数客户端库异步工作并且基于回调或类似模型，因此在等待消息或发布消息时不会阻塞任务。在某些用例中，同步是可取的，也是可能的。为了等待某个消息，一些库具有同步 API。但流程通常是异步的。</li>
+</ul>
+<h4 id="与消息队列的区别"><a href="#与消息队列的区别" class="headerlink" title="与消息队列的区别"></a>与消息队列的区别</h4><p><strong>消息队列存储消息直到它们被消费</strong> 当您使用消息队列时，每条传入的消息都存储在队列中，直到被客户端（通常称为消费者）接收为止。如果没有客户端接收到消息，则消息将停留在队列中并等待被消费。在消息队列中，消息不可能不被任何客户端处理，就像在 MQTT 中没有人订阅主题一样。</p>
+<p><strong>一条消息只被一个客户端消费</strong> 另一个很大的区别是，在传统的消息队列中，一条消息只能被一个消费者处理。负载分布在队列的所有消费者之间。在 MQTT 中，行为恰恰相反：订阅主题的每个订阅者都会收到消息。</p>
+<p><strong>队列是命名的，必须显式创建</strong> 。队列比主题严格得多。在使用队列之前，必须使用单独的命令显式创建队列。只有在队列命名和创建之后，才可以发布或消费消息。相比之下，MQTT 主题非常灵活，可以即时创建。</p>
+<h3 id="Client、broker和连接建立"><a href="#Client、broker和连接建立" class="headerlink" title="Client、broker和连接建立"></a>Client、broker和连接建立</h3><h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><p>当我们谈论客户端时，我们几乎总是指<a href="https://www.hivemq.com/blog/seven-best-mqtt-client-tools/">MQTT 客户端</a>。发布者和订阅者都是 MQTT 客户端。发布者和订阅者标签是指客户端当前是在发布消息还是订阅接收消息（发布和订阅功能也可以在同一个 MQTT 客户端中实现）。<strong>MQTT 客户端是运行 MQTT 库并通过网络连接到<a href="https://www.hivemq.com/hivemq/">MQTT 代理的</a>任何设备（从微控制器到成熟的服务器）。</strong>例如，MQTT 客户端可以是一个非常小的、资源受限的设备，它通过无线网络进行连接并拥有一个最低限度的库。MQTT 客户端也可以是运行图形 MQTT 客户端以进行测试的典型计算机。基本上，任何通过 TCP/IP 堆栈使用 MQTT 的设备都可以称为 MQTT 客户端。MQTT 协议的客户端实现非常简单直接。易于实施是 MQTT 非常适合小型设备的原因之一。<strong>MQTT 客户端库可用于多种编程语言。例如，Android、Arduino、C、C++、C#、Go、iOS、Java、JavaScript 和 .NET。</strong>您可以在<a href="https://github.com/mqtt/mqtt.github.io/wiki/libraries">MQTT wiki</a>上查看完整列表。</p>
+<h4 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h4><p>Broker<strong>负责接收所有消息，过滤消息，确定谁订阅了每条消息，并将消息发送给这些订阅的客户端。</strong>Broker还保存所有具有持久会话的客户端的会话数据，包括订阅和错过的消息（更多<a href="https://www.hivemq.com/blog/mqtt-essentials-part-7-persistent-session-queuing-messages/">详细信息</a>）。Broker的另一个职责是客户端的身份验证和授权。通常，Broker是可扩展的，这有助于自定义身份验证、授权和集成到后端系统中。集成尤其重要，因为Broker通常是直接暴露在 Internet 上的组件，处理大量客户端，并且需要将消息传递到下游分析和处理系统。订阅所有消息并不是一个真正的选择。简而言之，Broker是每个消息必须通过的中心枢纽。因此，<strong>重要的是您的Broker具有高度可扩展性、可集成到后端系统、易于监控和（当然）抗故障。</strong></p>
+<h4 id="MQTT-连接"><a href="#MQTT-连接" class="headerlink" title="MQTT 连接"></a>MQTT 连接</h4><p>MQTT 协议基于 TCP/IP。客户端和代理都需要有一个 TCP/IP 堆栈。</p>
+<p><img src="/images/mqtt/image-20211222144951371.png" alt="image-20211222144951371"></p>
+<p>MQTT 连接始终位于一个客户端和Broker之间。客户端从不直接相互连接。要发起连接，<strong>客户端向Broker发送 CONNECT 消息。Broker使用 CONNACK 消息</strong>和状态代码进行<strong>响应</strong>。建立连接后，Broker将保持打开状态，直到客户端发送断开连接命令或连接中断。</p>
+<p><img src="/images/mqtt/image-20211222145009476.png" alt="image-20211222145009476"></p>
+<h4 id="通过-NAT-的-MQTT-连接"><a href="#通过-NAT-的-MQTT-连接" class="headerlink" title="通过 NAT 的 MQTT 连接"></a>通过 NAT 的 MQTT 连接</h4><p>在许多常见用例中，MQTT 客户端位于路由器后面，该路由器使用网络地址转换 (NAT) 从私有网络地址（如 192.168.xx、10.0.xx）转换为面向公众的地址。正如我们已经提到的，MQTT 客户端通过向代理发送 CONNECT 消息来启动连接。因为代理有一个公共地址并保持连接打开以允许双向发送和接收消息（在初始 CONNECT 之后），位于 NAT 后面的客户端完全没有问题。</p>
+<h4 id="客户端用-CONNECT-消息发起连接"><a href="#客户端用-CONNECT-消息发起连接" class="headerlink" title="客户端用 CONNECT 消息发起连接"></a>客户端用 CONNECT 消息发起连接</h4><p>现在让我们看看<a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718028">MQTT CONNECT</a>命令消息。为了启动连接，客户端向代理发送命令消息。如果此 CONNECT 消息格式错误（根据 MQTT 规范）或打开网络套接字和发送连接消息之间的时间过长，代理将关闭连接。此行为可阻止可能降低代理速度的恶意客户端。 <strong>一个善良的 MQTT 3 客户端发送一条连接消息，其中包含以下内容</strong>（除其他外）：</p>
+<p><img src="/images/mqtt/image-20211222171611919.png" alt="image-20211222171611919"></p>
+<h4 id="ClientId"><a href="#ClientId" class="headerlink" title="ClientId"></a>ClientId</h4><p>(ClientId)<strong>标识</strong>连接到 MQTT 代理的<strong>每个 MQTT 客户端</strong>。Broker 使用 ClientId 来标识客户端和客户端的当前状态。因此，这个 Id 对于每个客户端和 Broker 应该是唯一的。在 MQTT 3.1.1 中，如果您不需要Broker 持有状态，您可以发送一个空的 ClientId。空的 ClientId 导致连接没有任何状态。在这种情况下，clean session 标志必须设置为 true，否则Broker 将拒绝连接。</p>
+<h3 id="发布、订阅和取消订阅"><a href="#发布、订阅和取消订阅" class="headerlink" title="发布、订阅和取消订阅"></a>发布、订阅和取消订阅</h3><h2 id="MQTT特性"><a href="#MQTT特性" class="headerlink" title="MQTT特性"></a>MQTT特性</h2><h2 id="MQTT特殊"><a href="#MQTT特殊" class="headerlink" title="MQTT特殊"></a>MQTT特殊</h2>]]></content>
+  </entry>
+  <entry>
+    <title>数组的理解</title>
+    <url>/java/%E6%95%B0%E7%BB%84/java/%E6%95%B0%E7%BB%84%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -310,7 +352,26 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;address&quot; class&#x3D;&quot;com.simafanyin.pojo.Address&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;address&quot; value&#x3D;&quot;Shanghai&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;student&quot; class&#x3D;&quot;com.simafanyin.pojo.Student&quot; autowire&#x3D;&quot;byName&quot;&gt;</span><br><span class="line">    &lt;!-- Bean注入，ref --&gt;</span><br><span class="line">    &lt;!-- &lt;property name&#x3D;&quot;address&quot; ref&#x3D;&quot;address&quot;&#x2F;&gt; --&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
 <p>byName:会自动在容器上下文查找，自己对象的属性名对应的bean id。匹配对应的set方法进行赋值。</p>
 <p>byType:会自动在容器上下文查找，自己对象的类型对应的bean classs。匹配对应的set方法进行赋值。</p>
-<h2 id="6-2-使用注解进行自动装配"><a href="#6-2-使用注解进行自动装配" class="headerlink" title="6.2 使用注解进行自动装配"></a>6.2 使用注解进行自动装配</h2>]]></content>
+<h2 id="6-2-使用注解进行自动装配"><a href="#6-2-使用注解进行自动装配" class="headerlink" title="6.2 使用注解进行自动装配"></a>6.2 使用注解进行自动装配</h2><p>1.导入约束： context约束</p>
+<p>2.==配置注解的支持：<a href="context:annotation-config/">context:annotation-config/</a>==</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>@Autowired 先类型，后名字来寻找属性  </p>
+<p>类属性使用，或者set方法上使用</p>
+<p>使用Autowired，不需要编写set方法，前提是自动装配的属性在IOC(String) 容器中存在，且符合类型ByType</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>springBoot</title>
+    <url>/uncategorized/spring5/springBoot/</url>
+    <content><![CDATA[<a id="more"></a>]]></content>
+  </entry>
+  <entry>
+    <title>hello</title>
+    <url>/uncategorized/test/hello/</url>
+    <content><![CDATA[<p>ffffffff</p>
+<p>插入图片</p>
+<p><img src="../../images/hello/image-20211224103430258.png" alt="image-20211224103430258"></p>
+]]></content>
   </entry>
   <entry>
     <title>了解Zookeeper</title>
@@ -322,10 +383,5 @@
       <tags>
         <tag>Zookeeper</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>springBoot</title>
-    <url>/uncategorized/spring5/springBoot/</url>
-    <content><![CDATA[<a id="more"></a>]]></content>
   </entry>
 </search>
