@@ -22,9 +22,9 @@
   </entry>
   <entry>
     <title>hexo自定义指令</title>
-    <url>/hexo/other/2863b4a4/</url>
-    <content><![CDATA[<h3 id="HEXO创建文件指令"><a href="#HEXO创建文件指令" class="headerlink" title="HEXO创建文件指令"></a>HEXO创建文件指令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [layout] --path ..&#x2F;_self&#x2F;test&#x2F;h title</span><br></pre></td></tr></table></figure>
-<p>layout: 模板，缺省self</p>
+    <url>/hexo/2863b4a4/</url>
+    <content><![CDATA[<h3 id="HEXO创建文件指令"><a href="#HEXO创建文件指令" class="headerlink" title="HEXO创建文件指令"></a>HEXO创建文件指令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [layout] --path ..&#x2F;_posts&#x2F;test&#x2F;h title</span><br></pre></td></tr></table></figure>
+<p>layout: 模板，缺省为_confgi.yml中配置内容 default_layout: post</p>
 <p>-path, -p  文件地址</p>
 <p>title：文章标题</p>
 <a id="more"></a>
@@ -37,7 +37,6 @@
 ]]></content>
       <categories>
         <category>hexo</category>
-        <category>other</category>
       </categories>
       <tags>
         <tag>hexo</tag>
@@ -201,7 +200,7 @@
   </entry>
   <entry>
     <title>mqtt简介</title>
-    <url>/Mqtt/undefined/</url>
+    <url>/Mqtt/d4be2ab7/</url>
     <content><![CDATA[<p>“MQTT 是客户端服务器发布/订阅消息传输协议。它重量轻、开放、简单，并且设计得易于实施。这些特性使其非常适合在许多情况下使用，包括受限环境，例如机器对机器 (M2M) 和物联网 (IoT) 环境中的通信，在这些环境中需要少量代码占用空间和/或网络带宽非常宝贵。 “</p>
 <p><em>引用自官方<a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">MQTT 3.1.1 规范</a></em></p>
 <a id="more"></a>
@@ -412,6 +411,19 @@
       </categories>
       <tags>
         <tag>Zookeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql knowledge</title>
+    <url>/MySQL/f8969840/</url>
+    <content><![CDATA[<h2 id="mysql-int-long-秒，转为timeStamp时间戳"><a href="#mysql-int-long-秒，转为timeStamp时间戳" class="headerlink" title="mysql int/long 秒，转为timeStamp时间戳"></a>mysql int/long 秒，转为timeStamp时间戳</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM_UNIXTIME(time,&#39;%Y-%m-%d %H:%i:%s&#39;)</span><br><span class="line">FROM_UNIXTIME(1517454986,&#39;%Y-%m-%d %H:%i:%s&#39;) &#x2F;&#x2F; 2018-02-01 11:16:26</span><br></pre></td></tr></table></figure>
+<a id="more"></a>]]></content>
+      <categories>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
 </search>
