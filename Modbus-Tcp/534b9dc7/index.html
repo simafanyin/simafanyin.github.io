@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"simafanyin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于modbus Tcp协议的实时环境噪声监测">
+<meta property="og:url" content="https://simafanyin.github.io/Modbus-Tcp/534b9dc7/index.html">
+<meta property="og:site_name" content="司马梵音">
+<meta property="og:description" content="基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://simafanyin.github.io/images/modbusTcp/image-20220112114849657.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/modbusTcp/image-20220112114649019.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/modbusTcp/image-20220112115735373.png">
+<meta property="article:published_time" content="2022-01-12T03:35:41.000Z">
+<meta property="article:modified_time" content="2022-01-12T04:14:31.452Z">
+<meta property="article:author" content="simafanyin">
+<meta property="article:tag" content="java, mysql, git, spring, springboot, zookeeper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://simafanyin.github.io/images/modbusTcp/image-20220112114849657.png">
+
+<link rel="canonical" href="https://simafanyin.github.io/Modbus-Tcp/534b9dc7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于modbus Tcp协议的实时环境噪声监测 | 司马梵音</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">司马梵音</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录我的足迹</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simafanyin.github.io/Modbus-Tcp/534b9dc7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/64x64.ico">
+      <meta itemprop="name" content="simafanyin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="司马梵音">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于modbus Tcp协议的实时环境噪声监测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-12 11:35:41 / 修改时间：12:14:31" itemprop="dateCreated datePublished" datetime="2022-01-12T11:35:41+08:00">2022-01-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Modbus-Tcp/" itemprop="url" rel="index"><span itemprop="name">Modbus Tcp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。</p>
+<a id="more"></a>
+
+<h2 id="Modbus的简单介绍"><a href="#Modbus的简单介绍" class="headerlink" title="Modbus的简单介绍"></a>Modbus的简单介绍</h2><p>Modbus<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE">通信协议</a>，是Modicon PLC所制定的资料交换通信接口标准，Modbus异步的硬件架构简单，被使用的比率最高。Modbus Plus同步的协议可以提供高速的通信速度，适合主控制设备间大量资料交换。Modbus/TCP则是因应Ethernet网络的架构，近年来被大量使用的通信协议，也因为其速度及资料传送量远比Modbus Plus更快更大，所以已渐渐取代其功能。</p>
+<p>Modbus通信协议基本上是遵循MasterandSlave的通信步骤，有一方扮演Master角色采取主动询问方式，送出QueryMessage给Slave方，然后由Slave方依据接到的QueryMessage内容准备ResponseMessage回传给Master。即使目前硬件通信已经可以达到双方互相主动通信的能力，但是于Modbus通信协议的规定，必须一方为Master，另一方为Slave不能互换角色。一般使用上，监控系统(HMI)都为Master，PLC、电表、仪表等都为Slave，HMI系统一直PollingSlave的各种relayandregister最新数值，然后做显示及各种逻辑计算及控制调整等处理。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目是通过wifi设备 + 噪声设备 + 服务器 实现噪声的实时采集。</p>
+<p>噪声设备：AHAI2001-2型环境噪声检测仪，通过485串口传输消息，根据对应的采集命令，返回相应的消息。</p>
+<img src="/images/modbusTcp/image-20220112114849657.png" alt="image-20220112114849657" style="zoom:25%;" />
+
+<p>wifi设备：HF2211S WIFI Serial Device Server，可以将RS485转为wifi传输。HF2211S串口服务器提供了一种 RS232/RS4852 和 Wi-Fi 协议转换的产品，满足产品串口到无线数据传输的通道的解决方案。</p>
+<img src="/images/modbusTcp/image-20220112114649019.png" alt="image-20220112114649019" style="zoom:50%;" />
+
+<h2 id="基于STA的无线网络"><a href="#基于STA的无线网络" class="headerlink" title="基于STA的无线网络"></a>基于STA的无线网络</h2><p>如下图所示，路由器工作在 AP 模式，本产品和移动设备连接到 AP 下。与此同时，本产品连</p>
+<p>接到用户设备通过 RS232/RS485 接口。在这种网络结构中，整个无线网络可以很容易的被延伸。</p>
+<p><img src="/images/modbusTcp/image-20220112115735373.png" alt="image-20220112115735373"></p>
+<p>在同一网段内，服务器向wifi设备不停的发送指令，wifi设备将信号转为485串口信号发送给采集器。将得到的数据传回服务器，然后做显示及各种逻辑计算。</p>
+<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.wimpi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jamod<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相关代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> net.wimpi.modbus.ModbusException;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.io.ModbusTCPTransaction;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.msg.*;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.net.TCPMasterConnection;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.InetAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.UnknownHostException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModbusService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String modbusTcpServerIp = <span class="string">&quot;10.1.0.154&quot;</span>; <span class="comment">// wifi设备ip，端口确认8899</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String daCommand = <span class="string">&quot;04 04 00 00 00 01 31 9F&quot;</span>; <span class="comment">// 采集指令</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            dd();</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        dd();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> modbusTcpServerPort = <span class="number">8899</span>;</span><br><span class="line">        InetAddress inetAddress = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            inetAddress = InetAddress.getByName(modbusTcpServerIp);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 建立连接</span></span><br><span class="line">        TCPMasterConnection connection = <span class="keyword">new</span> TCPMasterConnection(inetAddress);</span><br><span class="line">        connection.setPort(modbusTcpServerPort);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            connection.connect();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (connection.isConnected()) &#123;</span><br><span class="line"><span class="comment">//            System.out.println(&quot;Connected to &quot; + connection.getAddress() + &quot;:&quot; + connection.getPort());</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Unable to connected to &quot;</span> + modbusTcpServerIp + <span class="string">&quot;:&quot;</span> + modbusTcpServerPort);</span><br><span class="line">        &#125;</span><br><span class="line">        ModbusTCPTransaction transaction = <span class="keyword">new</span> ModbusTCPTransaction(connection);</span><br><span class="line"></span><br><span class="line">        daCommand = daCommand.replaceAll(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        String functionCodeStr = daCommand.substring(<span class="number">2</span>, <span class="number">4</span>); <span class="comment">// Modbus寄存器操作命令</span></span><br><span class="line">        Integer deviceId = Integer.valueOf(daCommand.substring(<span class="number">0</span>, <span class="number">2</span>), <span class="number">16</span>); <span class="comment">// 设备Id 01</span></span><br><span class="line">        Integer readAddress = Integer.valueOf(daCommand.substring(<span class="number">4</span>, <span class="number">8</span>), <span class="number">16</span>); <span class="comment">// 读取地址 0000</span></span><br><span class="line">        Integer readLength = Integer.valueOf(daCommand.substring(<span class="number">8</span>, <span class="number">12</span>), <span class="number">16</span>); <span class="comment">// 0001 读取长度，单位WORD（一个WORD=2 bytes）</span></span><br><span class="line">        ModbusRequest request = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;03&quot;</span>.equals(functionCodeStr)) &#123; <span class="comment">// 支持 03，04的读取指令</span></span><br><span class="line">            request = <span class="keyword">new</span> ReadMultipleRegistersRequest(readAddress, readLength);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            request = <span class="keyword">new</span> ReadInputRegistersRequest(readAddress, readLength);</span><br><span class="line">        &#125;</span><br><span class="line">        request.setUnitID(deviceId);</span><br><span class="line">        transaction.setRequest(request);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            transaction.execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ModbusException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;ModbusTcp::Failed to read [&quot;</span> + readAddress + <span class="string">&quot;, &quot;</span> + readLength + <span class="string">&quot;] on [&quot;</span> + modbusTcpServerIp + <span class="string">&quot;:&quot;</span> + modbusTcpServerPort + <span class="string">&quot;]. &quot;</span> + e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 读取返回数据</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;03&quot;</span>.equals(functionCodeStr)) &#123;</span><br><span class="line">            ReadMultipleRegistersResponse response = (ReadMultipleRegistersResponse) transaction.getResponse();</span><br><span class="line">            <span class="keyword">int</span> value = response.getRegisterValue(<span class="number">0</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value: &quot;</span> + value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ReadInputRegistersResponse response = (ReadInputRegistersResponse) transaction.getResponse();</span><br><span class="line">            <span class="keyword">int</span> value = response.getRegisterValue(<span class="number">0</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value: &quot;</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">            connection.close();</span><br><span class="line"><span class="comment">//            System.out.println(&quot;Connection to &quot; + modbusTcpServerIp + &quot;:&quot; + modbusTcpServerPort + &quot; closed.&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>simafanyin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://simafanyin.github.io/Modbus-Tcp/534b9dc7/" title="基于modbus Tcp协议的实时环境噪声监测">https://simafanyin.github.io/Modbus-Tcp/534b9dc7/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/MySQL/f8969840/" rel="prev" title="MySQL随时记">
+      <i class="fa fa-chevron-left"></i> MySQL随时记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Modbus%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Modbus的简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">项目简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8ESTA%E7%9A%84%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">基于STA的无线网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">相关代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="simafanyin"
+      src="/images/64x64.ico">
+  <p class="site-author-name" itemprop="name">simafanyin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/simafanyin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;simafanyin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sima.fanyin@gmail.com" title="E-Mail → mailto:sima.fanyin@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_pv"></span>
+  </span>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">simafanyin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.6' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/self/clicklove.js"></script>
