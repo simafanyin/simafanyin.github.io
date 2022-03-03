@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://simafanyin.github.io/images/modbusTcp/image-20220112114649019.png">
 <meta property="og:image" content="https://simafanyin.github.io/images/modbusTcp/image-20220112115735373.png">
 <meta property="article:published_time" content="2022-01-12T03:35:41.000Z">
-<meta property="article:modified_time" content="2022-01-12T04:14:31.452Z">
+<meta property="article:modified_time" content="2022-01-12T04:15:43.613Z">
 <meta property="article:author" content="simafanyin">
 <meta property="article:tag" content="java, mysql, git, spring, springboot, zookeeper">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-01-12 11:35:41 / 修改时间：12:14:31" itemprop="dateCreated datePublished" datetime="2022-01-12T11:35:41+08:00">2022-01-12</time>
+              <time title="创建时间：2022-01-12 11:35:41 / 修改时间：12:15:43" itemprop="dateCreated datePublished" datetime="2022-01-12T11:35:41+08:00">2022-01-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +221,7 @@
         <p>基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。</p>
 <a id="more"></a>
 
-<h2 id="Modbus的简单介绍"><a href="#Modbus的简单介绍" class="headerlink" title="Modbus的简单介绍"></a>Modbus的简单介绍</h2><p>Modbus<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE">通信协议</a>，是Modicon PLC所制定的资料交换通信接口标准，Modbus异步的硬件架构简单，被使用的比率最高。Modbus Plus同步的协议可以提供高速的通信速度，适合主控制设备间大量资料交换。Modbus/TCP则是因应Ethernet网络的架构，近年来被大量使用的通信协议，也因为其速度及资料传送量远比Modbus Plus更快更大，所以已渐渐取代其功能。</p>
+<h2 id="Modbus的简单介绍"><a href="#Modbus的简单介绍" class="headerlink" title="Modbus的简单介绍"></a>Modbus的简单介绍</h2><p>Modbus通信协议，是Modicon PLC所制定的资料交换通信接口标准，Modbus异步的硬件架构简单，被使用的比率最高。Modbus Plus同步的协议可以提供高速的通信速度，适合主控制设备间大量资料交换。Modbus/TCP则是因应Ethernet网络的架构，近年来被大量使用的通信协议，也因为其速度及资料传送量远比Modbus Plus更快更大，所以已渐渐取代其功能。</p>
 <p>Modbus通信协议基本上是遵循MasterandSlave的通信步骤，有一方扮演Master角色采取主动询问方式，送出QueryMessage给Slave方，然后由Slave方依据接到的QueryMessage内容准备ResponseMessage回传给Master。即使目前硬件通信已经可以达到双方互相主动通信的能力，但是于Modbus通信协议的规定，必须一方为Master，另一方为Slave不能互换角色。一般使用上，监控系统(HMI)都为Master，PLC、电表、仪表等都为Slave，HMI系统一直PollingSlave的各种relayandregister最新数值，然后做显示及各种逻辑计算及控制调整等处理。</p>
 <h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目是通过wifi设备 + 噪声设备 + 服务器 实现噪声的实时采集。</p>
 <p>噪声设备：AHAI2001-2型环境噪声检测仪，通过485串口传输消息，根据对应的采集命令，返回相应的消息。</p>
