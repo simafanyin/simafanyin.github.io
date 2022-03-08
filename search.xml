@@ -3,19 +3,20 @@
   <entry>
     <title>git小技巧</title>
     <url>/git/6997b4f8/</url>
-    <content><![CDATA[<p>GitHub 官方表示，从2020/10/01开始，该平台所有新建的源代码库，缺省名称为 <code>main</code>。<br>此处记录如何将<code>master</code>分支切换到<code>main</code>分支</p>
+    <content><![CDATA[<p>关于git的一些指令的说明</p>
 <a id="more"></a>
-
-<h1 id="克隆-关联远程分支"><a href="#克隆-关联远程分支" class="headerlink" title="克隆/关联远程分支"></a>克隆/关联远程分支</h1><h2 id="克隆到本地"><a href="#克隆到本地" class="headerlink" title="克隆到本地"></a>克隆到本地</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone 【-b 分支名称】 origin 分支地址</span><br></pre></td></tr></table></figure>
-<h2 id="本地项目连接远程分支"><a href="#本地项目连接远程分支" class="headerlink" title="本地项目连接远程分支"></a>本地项目连接远程分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add origin 分支地址</span><br></pre></td></tr></table></figure>
+<h2 id="note"><a href="#note" class="headerlink" title="note"></a>note</h2><p>下文中的master, main都是分支名称，可以自定义</p>
+<h1 id="克隆-关联远程分支"><a href="#克隆-关联远程分支" class="headerlink" title="克隆/关联远程分支"></a>克隆/关联远程分支</h1><h2 id="克隆到本地"><a href="#克隆到本地" class="headerlink" title="克隆到本地"></a>克隆到本地</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone 【-b 分支名称】 分支地址</span><br></pre></td></tr></table></figure>
+<h2 id="本地已有的项目连接远程分支"><a href="#本地已有的项目连接远程分支" class="headerlink" title="本地已有的项目连接远程分支"></a>本地已有的项目连接远程分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add origin 分支地址</span><br></pre></td></tr></table></figure>
 <h2 id="刷新远程分支（刷新）"><a href="#刷新远程分支（刷新）" class="headerlink" title="刷新远程分支（刷新）"></a>刷新远程分支（刷新）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
 <h2 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -a &#x2F;&#x2F; 查看所有分支</span><br><span class="line">git branch -r &#x2F;&#x2F; 查看远程分支</span><br></pre></td></tr></table></figure>
-<h2 id="远程仓库与本地仓库合并"><a href="#远程仓库与本地仓库合并" class="headerlink" title="远程仓库与本地仓库合并"></a>远程仓库与本地仓库合并</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure>
+<h2 id="远程创建分支后，本地查看远程分支没有的情况，需要更新"><a href="#远程创建分支后，本地查看远程分支没有的情况，需要更新" class="headerlink" title="远程创建分支后，本地查看远程分支没有的情况，需要更新"></a>远程创建分支后，本地查看远程分支没有的情况，需要更新</h2><h2 id="远程仓库与本地仓库合并"><a href="#远程仓库与本地仓库合并" class="headerlink" title="远程仓库与本地仓库合并"></a>远程仓库与本地仓库合并</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure>
 <h2 id="与远程分支建立关联（推送代码到远程分支库），其中-u表示与远程库建立连接，后续不在需要"><a href="#与远程分支建立关联（推送代码到远程分支库），其中-u表示与远程库建立连接，后续不在需要" class="headerlink" title="与远程分支建立关联（推送代码到远程分支库），其中-u表示与远程库建立连接，后续不在需要"></a>与远程分支建立关联（推送代码到远程分支库），其中-u表示与远程库建立连接，后续不在需要</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push -u origin</span><br></pre></td></tr></table></figure>
+<p>GitHub 官方表示，从2020/10/01开始，该平台所有新建的源代码库，缺省名称为 <code>main</code>。<br>此处记录如何将<code>master</code>分支切换到<code>main</code>分支</p>
 <h1 id="切换项目分支-从master-–-gt-main"><a href="#切换项目分支-从master-–-gt-main" class="headerlink" title="切换项目分支(从master –&gt; main)"></a>切换项目分支(从master –&gt; main)</h1><p>github目前创建项目缺省分支名为main</p>
 <h2 id="1-修改本地缺省分支"><a href="#1-修改本地缺省分支" class="headerlink" title="1.修改本地缺省分支"></a>1.修改本地缺省分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global init.defaultBranch main</span><br></pre></td></tr></table></figure>
 <h2 id="2-git新建仓库，本地分支由master变为main"><a href="#2-git新建仓库，本地分支由master变为main" class="headerlink" title="2.git新建仓库，本地分支由master变为main"></a>2.git新建仓库，本地分支由master变为main</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -b main    新建main分支，并转至main分支</span><br></pre></td></tr></table></figure>
-<h2 id="3-合并两个分支"><a href="#3-合并两个分支" class="headerlink" title="3.合并两个分支"></a>3.合并两个分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge master</span><br></pre></td></tr></table></figure>
+<h2 id="3-合并两个分支，将master分支，合并到main中"><a href="#3-合并两个分支，将master分支，合并到main中" class="headerlink" title="3.合并两个分支，将master分支，合并到main中"></a>3.合并两个分支，将master分支，合并到main中</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge master</span><br></pre></td></tr></table></figure>
 <h2 id="4-本地add，commit，并将本地main分支推送到远程仓库"><a href="#4-本地add，commit，并将本地main分支推送到远程仓库" class="headerlink" title="4.本地add，commit，并将本地main分支推送到远程仓库"></a>4.本地add，commit，并将本地main分支推送到远程仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add</span><br><span class="line">git commit</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
 
 
@@ -235,19 +236,6 @@
       </categories>
   </entry>
   <entry>
-    <title>MySQL随时记</title>
-    <url>/MySQL/f8969840/</url>
-    <content><![CDATA[<h2 id="mysql-int-long-秒，转为timeStamp时间戳"><a href="#mysql-int-long-秒，转为timeStamp时间戳" class="headerlink" title="mysql int/long 秒，转为timeStamp时间戳"></a>mysql int/long 秒，转为timeStamp时间戳</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM_UNIXTIME(time,&#39;%Y-%m-%d %H:%i:%s&#39;)</span><br><span class="line">FROM_UNIXTIME(1517454986,&#39;%Y-%m-%d %H:%i:%s&#39;) &#x2F;&#x2F; 2018-02-01 11:16:26</span><br></pre></td></tr></table></figure>
-<a id="more"></a>]]></content>
-      <categories>
-        <category>MySQL</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-        <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mqtt简介</title>
     <url>/Mqtt/d4be2ab7/</url>
     <content><![CDATA[<p>“MQTT 是客户端服务器发布/订阅消息传输协议。它重量轻、开放、简单，并且设计得易于实施。这些特性使其非常适合在许多情况下使用，包括受限环境，例如机器对机器 (M2M) 和物联网 (IoT) 环境中的通信，在这些环境中需要少量代码占用空间和/或网络带宽非常宝贵。 “</p>
@@ -296,6 +284,19 @@
       <tags>
         <tag>Mqtt</tag>
         <tag>IOT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL随时记</title>
+    <url>/MySQL/f8969840/</url>
+    <content><![CDATA[<h2 id="mysql-int-long-秒，转为timeStamp时间戳"><a href="#mysql-int-long-秒，转为timeStamp时间戳" class="headerlink" title="mysql int/long 秒，转为timeStamp时间戳"></a>mysql int/long 秒，转为timeStamp时间戳</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM_UNIXTIME(time,&#39;%Y-%m-%d %H:%i:%s&#39;)</span><br><span class="line">FROM_UNIXTIME(1517454986,&#39;%Y-%m-%d %H:%i:%s&#39;) &#x2F;&#x2F; 2018-02-01 11:16:26</span><br></pre></td></tr></table></figure>
+<a id="more"></a>]]></content>
+      <categories>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
