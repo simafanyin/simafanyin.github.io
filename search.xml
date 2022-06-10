@@ -62,6 +62,29 @@
       </tags>
   </entry>
   <entry>
+    <title>使用https发送请求</title>
+    <url>/java/https/b4ec0f74/</url>
+    <content><![CDATA[<p>使用<code>HttpsURLConnection</code>打开链接，使用<code>OutputStream</code>写入请求参数</p>
+<a id="more"></a>
+<h3 id="以发送微信模板为例"><a href="#以发送微信模板为例" class="headerlink" title="以发送微信模板为例"></a>以发送微信模板为例</h3><p>https + JSON 方式传输</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 设置url</span><br><span class="line">String url &#x3D; &quot;https:&#x2F;&#x2F;api.weixin.qq.com&#x2F;cgi-bin&#x2F;message&#x2F;template&#x2F;send?access_token&#x3D;&quot; + accessToken;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打开链接</span><br><span class="line">HttpsURLConnection urlConnection &#x3D;(HttpsURLConnection) new URL(url).openConnection();</span><br><span class="line">&#x2F;&#x2F; 设置post请求方式</span><br><span class="line">urlConnection.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">&#x2F;&#x2F; 设置true，通过http连接，获取其返回数据</span><br><span class="line">urlConnection.setDoOutput(true);</span><br><span class="line">&#x2F;&#x2F; 使用 OutputStream 写入请求参数，其中的jsonString是JSON格式转字符串</span><br><span class="line">urlConnection.getOutputStream().write(jsonString.getBytes(StandardCharsets.UTF_8));</span><br></pre></td></tr></table></figure>
+<h3 id="获取返回消息"><a href="#获取返回消息" class="headerlink" title="获取返回消息"></a>获取返回消息</h3><p>通过<code>InputStream</code>读取返回数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取输入流</span><br><span class="line">InputStream inputstream &#x3D; urlConnection.getInputStream();</span><br><span class="line">StringWriter writer &#x3D; new StringWriter(); &#x2F;&#x2F; 得到返回数据</span><br><span class="line">&#x2F;&#x2F; 读取拷贝输入流数据</span><br><span class="line">IOUtils.copy(inputstream, writer, StandardCharsets.UTF_8);</span><br><span class="line">inputstream.close();</span><br></pre></td></tr></table></figure>
+<p>代码中的 <code>jsonString</code>是JSON格式的。因为约定传输格式为<code>application/json</code>格式，对于不同的传输格式，使用不同的传递参数。对于<code>application/x-www-form-urlencoded</code>这种，代码中<code>jsonString</code>应该是<code>StringBuffer</code>类型。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuffer params &#x3D; new StringBuffer();</span><br><span class="line">params.append(&quot;username&#x3D;&quot;).append(URLEncoder.encode(username, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;password&#x3D;&quot;).append(URLEncoder.encode(password, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;toPhoneNo&#x3D;&quot;).append(URLEncoder.encode(phoneNum, &quot;UTF-8&quot;));</span><br><span class="line">try (OutputStreamWriter out &#x3D; new OutputStreamWriter(urlConnection.getOutputStream(), &quot;UTF-8&quot;)) &#123;</span><br><span class="line">		out.write(params.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取返回数据 <code>urlConnection.getInputStream()</code>会抛出<code>IOException</code>的异常，需要在<code>catch</code>中捕获，并记录日志。</p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>对于实现了<code>Closeable</code>接口的类，引用时可以使用<code>try()</code>包裹，可以自动关闭。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>io</category>
+        <category>https</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>对==和equals()的理解</title>
     <url>/java/basic/48a35850/</url>
     <content><![CDATA[<h2 id="和equals的区别"><a href="#和equals的区别" class="headerlink" title="==和equals的区别"></a>==和equals的区别</h2><ul>
@@ -78,6 +101,50 @@
       <categories>
         <category>java</category>
         <category>basic</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对HashMap的理解</title>
+    <url>/java/HashMap/d85f3cec/</url>
+    <content><![CDATA[<p>从存储结构，索引，扩容，put方法，线程安全来简单说明，并讲述相关的如：HashTable，ConcurrentHashMap等</p>
+<a id="more"></a>
+
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>jdk1.7中，由数组 + 链表组成，数组是hashMap的主体，链表用于处理哈希冲突。<br>jdk1.8中，由数组 + 链表 + 红黑树组成。红黑树复杂度为O(logn)，链表是O(n)，链表过长会影响hashMap的性能。链表和红黑树在满足一定条件时会进行转换。</p>
+<ul>
+<li>当链表超过8，且数据（数组长度）大于64时，转为红黑树。</li>
+<li>链表超过8，数据长度小于64时，会对数组进行扩容。  </li>
+</ul>
+<p>红黑树需要左旋，右旋，变色来保持平衡，单链不需要。链表不超过8时，链表结构可以保证查询性能，大于8时，使用红黑树提高搜索性能，但新增节点时效率会变慢。</p>
+<h2 id="索引计算"><a href="#索引计算" class="headerlink" title="索引计算"></a>索引计算</h2><p>先根据key值，计算出hashCode值，然后再计算出hash值，通过hash &amp; (length -     1) 计算出下标。<br><code>jdk1.8中异或其右移16位</code><br>jdk1.8中异或其右移16位的值，优化了高位运算的算法，可以在数组长度较小的时候，也可以保证高低bit都参与到hash的计算中，同时不会有太大的开销。<br><code>hash值与length-1相与（hash &amp; (length - 1)）</code><br>数组的长度都是2的n次方，hash &amp; (length - 1)等价于对hash取模，即hash%length，但&amp;比%更高效。<br><code>HashMap数组长度是2的幂次方</code><br>有助于减少hash冲突，不浪费空间。二进制为11111…方便与操作，实际使用中，其构造函数自动将传入的数组大小取最近的2的n次方，大于等于当前传入值。  </p>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>HashMap的容量超过负载因子定义的容量后，数组扩大为原来的2倍，将原来的对象放到新的数组中。<br>1.8中做了优化，元素会在原来的位置，或者在原来位置 + 原Hash表的长度，不需要重新计算hash，只需要看原来的hash中新增的bit是0还是1。0的话索引不变，1的话 + 原哈希表长度。</p>
+<h2 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h2><ul>
+<li>根据key值计算hash值，找到其在数组中的存储的下标  </li>
+<li>判断数组是否为空，调用resize初始化</li>
+<li>没有hash冲突，直接放在对应的数组下标中</li>
+<li>有hash冲突，key存在，则覆盖value</li>
+<li>有hash冲突，key不存在，是红黑树，就将节点挂在树上</li>
+<li>有hash冲突，key不存在，是链表，判断链表是否大于8，如果大于8，数组容量小于64，进行扩容，大于8，数组容量大于64，转为红黑树；否则使用头插法，在链表中加入键值对。</li>
+</ul>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2>]]></content>
+      <categories>
+        <category>java</category>
+        <category>HashMap</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组的理解</title>
+    <url>/java/%E6%95%B0%E7%BB%84/17fb9b1e/</url>
+    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>数组</category>
       </categories>
       <tags>
         <tag>java</tag>
@@ -151,71 +218,32 @@
       </tags>
   </entry>
   <entry>
-    <title>数组的理解</title>
-    <url>/java/%E6%95%B0%E7%BB%84/17fb9b1e/</url>
-    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>数组</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用https发送请求</title>
-    <url>/java/https/b4ec0f74/</url>
-    <content><![CDATA[<p>使用<code>HttpsURLConnection</code>打开链接，使用<code>OutputStream</code>写入请求参数</p>
-<a id="more"></a>
-<h3 id="以发送微信模板为例"><a href="#以发送微信模板为例" class="headerlink" title="以发送微信模板为例"></a>以发送微信模板为例</h3><p>https + JSON 方式传输</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 设置url</span><br><span class="line">String url &#x3D; &quot;https:&#x2F;&#x2F;api.weixin.qq.com&#x2F;cgi-bin&#x2F;message&#x2F;template&#x2F;send?access_token&#x3D;&quot; + accessToken;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打开链接</span><br><span class="line">HttpsURLConnection urlConnection &#x3D;(HttpsURLConnection) new URL(url).openConnection();</span><br><span class="line">&#x2F;&#x2F; 设置post请求方式</span><br><span class="line">urlConnection.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">&#x2F;&#x2F; 设置true，通过http连接，获取其返回数据</span><br><span class="line">urlConnection.setDoOutput(true);</span><br><span class="line">&#x2F;&#x2F; 使用 OutputStream 写入请求参数，其中的jsonString是JSON格式转字符串</span><br><span class="line">urlConnection.getOutputStream().write(jsonString.getBytes(StandardCharsets.UTF_8));</span><br></pre></td></tr></table></figure>
-<h3 id="获取返回消息"><a href="#获取返回消息" class="headerlink" title="获取返回消息"></a>获取返回消息</h3><p>通过<code>InputStream</code>读取返回数据</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取输入流</span><br><span class="line">InputStream inputstream &#x3D; urlConnection.getInputStream();</span><br><span class="line">StringWriter writer &#x3D; new StringWriter(); &#x2F;&#x2F; 得到返回数据</span><br><span class="line">&#x2F;&#x2F; 读取拷贝输入流数据</span><br><span class="line">IOUtils.copy(inputstream, writer, StandardCharsets.UTF_8);</span><br><span class="line">inputstream.close();</span><br></pre></td></tr></table></figure>
-<p>代码中的 <code>jsonString</code>是JSON格式的。因为约定传输格式为<code>application/json</code>格式，对于不同的传输格式，使用不同的传递参数。对于<code>application/x-www-form-urlencoded</code>这种，代码中<code>jsonString</code>应该是<code>StringBuffer</code>类型。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuffer params &#x3D; new StringBuffer();</span><br><span class="line">params.append(&quot;username&#x3D;&quot;).append(URLEncoder.encode(username, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;password&#x3D;&quot;).append(URLEncoder.encode(password, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;toPhoneNo&#x3D;&quot;).append(URLEncoder.encode(phoneNum, &quot;UTF-8&quot;));</span><br><span class="line">try (OutputStreamWriter out &#x3D; new OutputStreamWriter(urlConnection.getOutputStream(), &quot;UTF-8&quot;)) &#123;</span><br><span class="line">		out.write(params.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>获取返回数据 <code>urlConnection.getInputStream()</code>会抛出<code>IOException</code>的异常，需要在<code>catch</code>中捕获，并记录日志。</p>
-<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>对于实现了<code>Closeable</code>接口的类，引用时可以使用<code>try()</code>包裹，可以自动关闭。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>io</category>
-        <category>https</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对HashMap的理解</title>
-    <url>/java/HashMap/d85f3cec/</url>
-    <content><![CDATA[<p>从存储结构，索引，扩容，put方法，线程安全来简单说明，并讲述相关的如：HashTable，ConcurrentHashMap等</p>
+    <title>基于modbus Tcp协议的实时环境噪声监测</title>
+    <url>/Modbus-Tcp/534b9dc7/</url>
+    <content><![CDATA[<p>基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。</p>
 <a id="more"></a>
 
-<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>jdk1.7中，由数组 + 链表组成，数组是hashMap的主体，链表用于处理哈希冲突。<br>jdk1.8中，由数组 + 链表 + 红黑树组成。红黑树复杂度为O(logn)，链表是O(n)，链表过长会影响hashMap的性能。链表和红黑树在满足一定条件时会进行转换。</p>
-<ul>
-<li>当链表超过8，且数据（数组长度）大于64时，转为红黑树。</li>
-<li>链表超过8，数据长度小于64时，会对数组进行扩容。  </li>
-</ul>
-<p>红黑树需要左旋，右旋，变色来保持平衡，单链不需要。链表不超过8时，链表结构可以保证查询性能，大于8时，使用红黑树提高搜索性能，但新增节点时效率会变慢。</p>
-<h2 id="索引计算"><a href="#索引计算" class="headerlink" title="索引计算"></a>索引计算</h2><p>先根据key值，计算出hashCode值，然后再计算出hash值，通过hash &amp; (length -     1) 计算出下标。<br><code>jdk1.8中异或其右移16位</code><br>jdk1.8中异或其右移16位的值，优化了高位运算的算法，可以在数组长度较小的时候，也可以保证高低bit都参与到hash的计算中，同时不会有太大的开销。<br><code>hash值与length-1相与（hash &amp; (length - 1)）</code><br>数组的长度都是2的n次方，hash &amp; (length - 1)等价于对hash取模，即hash%length，但&amp;比%更高效。<br><code>HashMap数组长度是2的幂次方</code><br>有助于减少hash冲突，不浪费空间。二进制为11111…方便与操作，实际使用中，其构造函数自动将传入的数组大小取最近的2的n次方，大于等于当前传入值。  </p>
-<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>HashMap的容量超过负载因子定义的容量后，数组扩大为原来的2倍，将原来的对象放到新的数组中。<br>1.8中做了优化，元素会在原来的位置，或者在原来位置 + 原Hash表的长度，不需要重新计算hash，只需要看原来的hash中新增的bit是0还是1。0的话索引不变，1的话 + 原哈希表长度。</p>
-<h2 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h2><ul>
-<li>根据key值计算hash值，找到其在数组中的存储的下标  </li>
-<li>判断数组是否为空，调用resize初始化</li>
-<li>没有hash冲突，直接放在对应的数组下标中</li>
-<li>有hash冲突，key存在，则覆盖value</li>
-<li>有hash冲突，key不存在，是红黑树，就将节点挂在树上</li>
-<li>有hash冲突，key不存在，是链表，判断链表是否大于8，如果大于8，数组容量小于64，进行扩容，大于8，数组容量大于64，转为红黑树；否则使用头插法，在链表中加入键值对。</li>
-</ul>
-<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2>]]></content>
+<h2 id="Modbus的简单介绍"><a href="#Modbus的简单介绍" class="headerlink" title="Modbus的简单介绍"></a>Modbus的简单介绍</h2><p>Modbus通信协议，是Modicon PLC所制定的资料交换通信接口标准，Modbus异步的硬件架构简单，被使用的比率最高。Modbus Plus同步的协议可以提供高速的通信速度，适合主控制设备间大量资料交换。Modbus/TCP则是因应Ethernet网络的架构，近年来被大量使用的通信协议，也因为其速度及资料传送量远比Modbus Plus更快更大，所以已渐渐取代其功能。</p>
+<p>Modbus通信协议基本上是遵循MasterandSlave的通信步骤，有一方扮演Master角色采取主动询问方式，送出QueryMessage给Slave方，然后由Slave方依据接到的QueryMessage内容准备ResponseMessage回传给Master。即使目前硬件通信已经可以达到双方互相主动通信的能力，但是于Modbus通信协议的规定，必须一方为Master，另一方为Slave不能互换角色。一般使用上，监控系统(HMI)都为Master，PLC、电表、仪表等都为Slave，HMI系统一直PollingSlave的各种relayandregister最新数值，然后做显示及各种逻辑计算及控制调整等处理。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目是通过wifi设备 + 噪声设备 + 服务器 实现噪声的实时采集。</p>
+<p>噪声设备：AHAI2001-2型环境噪声检测仪，通过485串口传输消息，根据对应的采集命令，返回相应的消息。</p>
+<img src="/images/modbusTcp/image-20220112114849657.png" alt="image-20220112114849657" style="zoom:25%;" />
+
+<p>wifi设备：HF2211S WIFI Serial Device Server，可以将RS485转为wifi传输。HF2211S串口服务器提供了一种 RS232/RS4852 和 Wi-Fi 协议转换的产品，满足产品串口到无线数据传输的通道的解决方案。</p>
+<img src="/images/modbusTcp/image-20220112114649019.png" alt="image-20220112114649019" style="zoom:50%;" />
+
+<h2 id="基于STA的无线网络"><a href="#基于STA的无线网络" class="headerlink" title="基于STA的无线网络"></a>基于STA的无线网络</h2><p>如下图所示，路由器工作在 AP 模式，本产品和移动设备连接到 AP 下。与此同时，本产品连</p>
+<p>接到用户设备通过 RS232/RS485 接口。在这种网络结构中，整个无线网络可以很容易的被延伸。</p>
+<p><img src="/images/modbusTcp/image-20220112115735373.png" alt="image-20220112115735373"></p>
+<p>在同一网段内，服务器向wifi设备不停的发送指令，wifi设备将信号转为485串口信号发送给采集器。将得到的数据传回服务器，然后做显示及各种逻辑计算。</p>
+<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.wimpi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jamod<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相关代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.wimpi.modbus.ModbusException;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.io.ModbusTCPTransaction;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.msg.*;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.net.TCPMasterConnection;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.InetAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.UnknownHostException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModbusService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String modbusTcpServerIp = <span class="string">&quot;10.1.0.154&quot;</span>; <span class="comment">// wifi设备ip，端口确认8899</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String daCommand = <span class="string">&quot;04 04 00 00 00 01 31 9F&quot;</span>; <span class="comment">// 采集指令</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            dd();</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        dd();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> modbusTcpServerPort = <span class="number">8899</span>;</span><br><span class="line">        InetAddress inetAddress = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            inetAddress = InetAddress.getByName(modbusTcpServerIp);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 建立连接</span></span><br><span class="line">        TCPMasterConnection connection = <span class="keyword">new</span> TCPMasterConnection(inetAddress);</span><br><span class="line">        connection.setPort(modbusTcpServerPort);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            connection.connect();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (connection.isConnected()) &#123;</span><br><span class="line"><span class="comment">//            System.out.println(&quot;Connected to &quot; + connection.getAddress() + &quot;:&quot; + connection.getPort());</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Unable to connected to &quot;</span> + modbusTcpServerIp + <span class="string">&quot;:&quot;</span> + modbusTcpServerPort);</span><br><span class="line">        &#125;</span><br><span class="line">        ModbusTCPTransaction transaction = <span class="keyword">new</span> ModbusTCPTransaction(connection);</span><br><span class="line"></span><br><span class="line">        daCommand = daCommand.replaceAll(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        String functionCodeStr = daCommand.substring(<span class="number">2</span>, <span class="number">4</span>); <span class="comment">// Modbus寄存器操作命令</span></span><br><span class="line">        Integer deviceId = Integer.valueOf(daCommand.substring(<span class="number">0</span>, <span class="number">2</span>), <span class="number">16</span>); <span class="comment">// 设备Id 01</span></span><br><span class="line">        Integer readAddress = Integer.valueOf(daCommand.substring(<span class="number">4</span>, <span class="number">8</span>), <span class="number">16</span>); <span class="comment">// 读取地址 0000</span></span><br><span class="line">        Integer readLength = Integer.valueOf(daCommand.substring(<span class="number">8</span>, <span class="number">12</span>), <span class="number">16</span>); <span class="comment">// 0001 读取长度，单位WORD（一个WORD=2 bytes）</span></span><br><span class="line">        ModbusRequest request = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;03&quot;</span>.equals(functionCodeStr)) &#123; <span class="comment">// 支持 03，04的读取指令</span></span><br><span class="line">            request = <span class="keyword">new</span> ReadMultipleRegistersRequest(readAddress, readLength);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            request = <span class="keyword">new</span> ReadInputRegistersRequest(readAddress, readLength);</span><br><span class="line">        &#125;</span><br><span class="line">        request.setUnitID(deviceId);</span><br><span class="line">        transaction.setRequest(request);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            transaction.execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ModbusException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;ModbusTcp::Failed to read [&quot;</span> + readAddress + <span class="string">&quot;, &quot;</span> + readLength + <span class="string">&quot;] on [&quot;</span> + modbusTcpServerIp + <span class="string">&quot;:&quot;</span> + modbusTcpServerPort + <span class="string">&quot;]. &quot;</span> + e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 读取返回数据</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;03&quot;</span>.equals(functionCodeStr)) &#123;</span><br><span class="line">            ReadMultipleRegistersResponse response = (ReadMultipleRegistersResponse) transaction.getResponse();</span><br><span class="line">            <span class="keyword">int</span> value = response.getRegisterValue(<span class="number">0</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value: &quot;</span> + value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ReadInputRegistersResponse response = (ReadInputRegistersResponse) transaction.getResponse();</span><br><span class="line">            <span class="keyword">int</span> value = response.getRegisterValue(<span class="number">0</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value: &quot;</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">            connection.close();</span><br><span class="line"><span class="comment">//            System.out.println(&quot;Connection to &quot; + modbusTcpServerIp + &quot;:&quot; + modbusTcpServerPort + &quot; closed.&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
-        <category>java</category>
-        <category>HashMap</category>
+        <category>Modbus Tcp</category>
       </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
   </entry>
   <entry>
     <title>mqtt简介</title>
@@ -300,52 +328,108 @@
 </ul>
 </li>
 <li><p>创建</p>
-<ul>
-<li>~~~<br>CREATE DATABASE [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 删除</span><br><span class="line"></span><br><span class="line">  * ~~~</span><br><span class="line">    DROP DATABASE [IF EXISTS] 数据库名;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE DATABASE [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];</span><br></pre></td></tr></table></figure></li>
+<li><p>删除</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DROP DATABASE [IF EXISTS] 数据库名;</span><br></pre></td></tr></table></figure></li>
 <li><p>使用</p>
-<ul>
-<li>~~~<br>USE 数据库名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### DDL 数据类型</span><br><span class="line"></span><br><span class="line">![image-20220608143405464](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143405464.png)</span><br><span class="line"></span><br><span class="line">![image-20220608143334006](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143334006.png)</span><br><span class="line"></span><br><span class="line">char 固定长度，性能高，varchar 计算内容，修改其所占空间，性能较差</span><br><span class="line"></span><br><span class="line">![image-20220608143948475](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143948475.png)</span><br><span class="line"></span><br><span class="line">### DDL-表操作</span><br><span class="line"></span><br><span class="line">#### 查找所有表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-SHOW TABLES;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 查询表结构</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-DESC 表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 查询指定表的建表语句</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-SHOW CREATE TABLE 表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 创建表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-CREATE TABLE 表名(<br>字段1，字段1类型[COMMENT 字段1注释],<br>字段2，字段2类型[COMMENT 字段2注释],<br>…<br>)[COMMENT 表注释];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">例如：创建用户表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-CREATE TABLE TB_USER(<br>ID INT COMMENT ‘编号’,<br>NAME VARCHAR(30) COMMENT ‘姓名’,<br>AGE INT,<br>GENDER VARCHAR(1) COMMENT ‘性别’<br>) COMMENT ‘用户表’;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 修改表名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-ALTER TABLE 表名 RENAME [TO] 新表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 删除表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-DROP TABLE [IF EXISTS] 表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-TRUNCATE TABLE 表名<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">TRUNCATE: 删除指定表，并重新创建该表。可以理解为清空表数据。</span><br><span class="line"></span><br><span class="line">#### 添加字段</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-ALTER TABLE 表名 ADD 字段名 类型（长度）[COMMENT 注释][约束];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 修改字段名和字段类型</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型（长度）[COMMENT 注释] [约束];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-ALTER TABLE 表名 MODIFY 字段名 类型（长度）[COMMENT 注释] [约束];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">CHANGE, MODIFY 都可以修改字段类型，但MODIFY不能修改列名</span><br><span class="line"></span><br><span class="line">建议：只修改字段类型时使用MODIFY，修改列名时使用CHANGE</span><br><span class="line"></span><br><span class="line">#### 删除字段</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-ALTER TABLE 表名 DROP 字段名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## DML</span><br><span class="line"></span><br><span class="line">* 添加数据（INSERT）</span><br><span class="line"></span><br><span class="line">* 修改数据（UPDATE）</span><br><span class="line"></span><br><span class="line">* 删除数据（DELETE）</span><br><span class="line"></span><br><span class="line">### 添加数据</span><br><span class="line"></span><br><span class="line">1. 给部分字段添加数据（字段不为null时应在其中）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-INSERT INTO 表名 (字段1,字段2,…) VALUES (值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. 给全部字段添加数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-INSERT INTO 表名 VALUES (值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">3. 批量添加数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-INSERT INTO 表名 (字段1,字段2,…) VALUES (值1,值2,…),(值1,值2,…),(值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-INSERT INTO 表名 VALUES (值1,值2,…),(值1,值2,…),(值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 插入数据时，指定的字段顺序需要和值的顺序一一对应。</span><br><span class="line">* 字符串和日期类型数据应该包含在引号中</span><br><span class="line">* 插入的数据大小，应该在字段的规定范围内。</span><br><span class="line"></span><br><span class="line">### 更新数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-UPDATE 表名 SET 字段名1=值1,字段名2=值2,…[WHERE 条件];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 删除数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-DELETE FROM 表名 [WHERE 条件];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## DQL</span><br><span class="line"></span><br><span class="line">![image-20220608155148765](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608155148765.png)</span><br><span class="line"></span><br><span class="line">### 基本查询</span><br><span class="line"></span><br><span class="line">1. 查询多个字段</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">USE 数据库名;</span><br></pre></td></tr></table></figure>
+<h3 id="DDL-数据类型"><a href="#DDL-数据类型" class="headerlink" title="DDL 数据类型"></a>DDL 数据类型</h3></li>
 </ul>
-<p> –查询部分数据<br> SELECT 字段1,字段2,… FROM 表名;</p>
-<p> –查询所有<br> SELECT * FROM 表名;</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. 设置别名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> SELECT 字段1 [AS 别名1],字段2 [AS 别名2]…FROM 表名;</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">3. 去重</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> SELECT DISTINCT 字段列表 FROM 表名;</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 条件查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> SELECT 字段列表 FROM 表名 WHERE 条件列表;</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. 条件</span><br><span class="line"></span><br><span class="line">   ![image-20220608161334863](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608161334863.png)</span><br><span class="line"></span><br><span class="line">   其中BETWEEN...AND... 中的值前者为最小值，后者为最大值。顺序不能变。</span><br><span class="line"></span><br><span class="line">   查询名字两位的数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> SELECT * FROM emp WHERE NAME LIKE ‘__’;</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 聚合函数</span><br><span class="line"></span><br><span class="line">将一列数据作为一个整体，进行纵向计算</span><br><span class="line"></span><br><span class="line">![image-20220608162814259](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608162814259.png)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>SELECT 聚合函数(字段列表) FROM 表名;</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">注：null值不参与聚合函数运算</span><br><span class="line"></span><br><span class="line">### 分组查询</span><br><span class="line"></span><br><span class="line">1. 语法 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>SELECT 字段列表 FORM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. WHERE 和 HAVING 区别</span><br><span class="line">   * 执行时机不同：WHERE 是分组之前进行过滤，不满足WHERE条件，不参与分组；而HAVING是分组之后对结果进行过滤。</span><br><span class="line">   * 判断条件不同：WHERE 中不能对聚合函数进行判断，而HAVING可以。</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line"></span><br><span class="line">* 执行顺序 WHERE &gt; 据合函数 &gt; HAVING</span><br><span class="line">* 分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义。</span><br><span class="line"></span><br><span class="line">### 排序查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式,字段2 排序方式,…;</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">   ASC：升序（缺省）</span><br><span class="line"></span><br><span class="line">   DESC：降序</span><br><span class="line"></span><br><span class="line">   注：多字段排序，当第一个字段值相同时，才会根据第二个字段排序。</span><br><span class="line"></span><br><span class="line">### 分页查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> SELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数;</p>
-<pre><code></code></pre>
+<p><img src="/images/learnMySQL/image-20220608143405464.png" alt="image-20220608143405464"></p>
+<p><img src="/images/learnMySQL/image-20220608143334006.png" alt="image-20220608143334006"></p>
+<p>char 固定长度，性能高，varchar 计算内容，修改其所占空间，性能较差</p>
+<p><img src="/images/learnMySQL/image-20220608143948475.png" alt="image-20220608143948475"></p>
+<h3 id="DDL-表操作"><a href="#DDL-表操作" class="headerlink" title="DDL-表操作"></a>DDL-表操作</h3><h4 id="查找所有表"><a href="#查找所有表" class="headerlink" title="查找所有表"></a>查找所有表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SHOW TABLES;</span><br></pre></td></tr></table></figure>
+<h4 id="查询表结构"><a href="#查询表结构" class="headerlink" title="查询表结构"></a>查询表结构</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DESC 表名;</span><br></pre></td></tr></table></figure>
+<h4 id="查询指定表的建表语句"><a href="#查询指定表的建表语句" class="headerlink" title="查询指定表的建表语句"></a>查询指定表的建表语句</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SHOW CREATE TABLE 表名;</span><br></pre></td></tr></table></figure>
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">	字段1，字段1类型[COMMENT 字段1注释],</span><br><span class="line">	字段2，字段2类型[COMMENT 字段2注释],</span><br><span class="line">	...</span><br><span class="line">)[COMMENT 表注释];</span><br></pre></td></tr></table></figure>
+<p>例如：创建用户表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TB_USER(</span><br><span class="line">    ID INT COMMENT &#39;编号&#39;,</span><br><span class="line">    NAME VARCHAR(30) COMMENT &#39;姓名&#39;,</span><br><span class="line">    AGE INT,</span><br><span class="line">    GENDER VARCHAR(1) COMMENT &#39;性别&#39;</span><br><span class="line">) COMMENT &#39;用户表&#39;;</span><br></pre></td></tr></table></figure>
+<h4 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 RENAME [TO] 新表名;</span><br></pre></td></tr></table></figure>
+<h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DROP TABLE [IF EXISTS] 表名;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">TRUNCATE TABLE 表名</span><br></pre></td></tr></table></figure>
+<p>TRUNCATE: 删除指定表，并重新创建该表。可以理解为清空表数据。</p>
+<h4 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD 字段名 类型（长度）[COMMENT 注释][约束];</span><br></pre></td></tr></table></figure>
+<h4 id="修改字段名和字段类型"><a href="#修改字段名和字段类型" class="headerlink" title="修改字段名和字段类型"></a>修改字段名和字段类型</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型（长度）[COMMENT 注释] [约束];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 MODIFY 字段名 类型（长度）[COMMENT 注释] [约束];</span><br></pre></td></tr></table></figure>
+<p>CHANGE, MODIFY 都可以修改字段类型，但MODIFY不能修改列名</p>
+<p>建议：只修改字段类型时使用MODIFY，修改列名时使用CHANGE</p>
+<h4 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 DROP 字段名;</span><br></pre></td></tr></table></figure>
+<h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><ul>
+<li><p>添加数据（INSERT）</p>
 </li>
+<li><p>修改数据（UPDATE）</p>
+</li>
+<li><p>删除数据（DELETE）</p>
+</li>
+</ul>
+<h3 id="添加数据"><a href="#添加数据" class="headerlink" title="添加数据"></a>添加数据</h3><ol>
+<li><p>给部分字段添加数据（字段不为null时应在其中）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INSERT INTO 表名 (字段1,字段2,...) VALUES (值1,值2,...);</span><br></pre></td></tr></table></figure></li>
+<li><p>给全部字段添加数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INSERT INTO 表名 VALUES (值1,值2,...);</span><br></pre></td></tr></table></figure></li>
+<li><p>批量添加数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INSERT INTO 表名 (字段1,字段2,...) VALUES (值1,值2,...),(值1,值2,...),(值1,值2,...);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INSERT INTO 表名 VALUES (值1,值2,...),(值1,值2,...),(值1,值2,...);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>插入数据时，指定的字段顺序需要和值的顺序一一对应。</li>
+<li>字符串和日期类型数据应该包含在引号中</li>
+<li>插入的数据大小，应该在字段的规定范围内。</li>
+</ul>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UPDATE 表名 SET 字段名1&#x3D;值1,字段名2&#x3D;值2,...[WHERE 条件];</span><br></pre></td></tr></table></figure>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE FROM 表名 [WHERE 条件];</span><br></pre></td></tr></table></figure>
+<h2 id="DQL"><a href="#DQL" class="headerlink" title="DQL"></a>DQL</h2><p><img src="/images/learnMySQL/image-20220608155148765.png" alt="image-20220608155148765"></p>
+<h3 id="基本查询"><a href="#基本查询" class="headerlink" title="基本查询"></a>基本查询</h3><ol>
+<li><p>查询多个字段</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--查询部分数据</span><br><span class="line">SELECT 字段1,字段2,... FROM 表名;</span><br><span class="line">  </span><br><span class="line">--查询所有</span><br><span class="line">SELECT * FROM 表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置别名</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT 字段1 [AS 别名1],字段2 [AS 别名2]...FROM 表名;</span><br></pre></td></tr></table></figure></li>
+<li><p>去重</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT DISTINCT 字段列表 FROM 表名;</span><br></pre></td></tr></table></figure>
+<h3 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h3></li>
+<li><p>语法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名 WHERE 条件列表;</span><br></pre></td></tr></table></figure></li>
+<li><p>条件</p>
+<p><img src="/images/learnMySQL/image-20220608161334863.png" alt="image-20220608161334863"></p>
+<p>其中BETWEEN…AND… 中的值前者为最小值，后者为最大值。顺序不能变。</p>
+<p>查询名字两位的数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM emp WHERE NAME LIKE &#39;__&#39;;</span><br></pre></td></tr></table></figure>
+<h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3></li>
+</ol>
+<p>将一列数据作为一个整体，进行纵向计算</p>
+<p><img src="/images/learnMySQL/image-20220608162814259.png" alt="image-20220608162814259"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT 聚合函数(字段列表) FROM 表名;</span><br></pre></td></tr></table></figure>
+<p>注：null值不参与聚合函数运算</p>
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><ol>
+<li>语法 </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT 字段列表 FORM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>WHERE 和 HAVING 区别<ul>
+<li>执行时机不同：WHERE 是分组之前进行过滤，不满足WHERE条件，不参与分组；而HAVING是分组之后对结果进行过滤。</li>
+<li>判断条件不同：WHERE 中不能对聚合函数进行判断，而HAVING可以。</li>
+</ul>
+</li>
+</ol>
+<p>注：</p>
+<ul>
+<li>执行顺序 WHERE &gt; 据合函数 &gt; HAVING</li>
+<li>分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义。</li>
+</ul>
+<h3 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h3><ol>
+<li><p>语法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式,字段2 排序方式,...;</span><br></pre></td></tr></table></figure>
+<p>ASC：升序（缺省）</p>
+<p>DESC：降序</p>
+<p>注：多字段排序，当第一个字段值相同时，才会根据第二个字段排序。</p>
+</li>
+</ol>
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><ol>
+<li><p>语法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
 <li><p>起始索引从0开始，起始索引=（查询页码-1) * 每页显示记录数。</p>
 </li>
 <li><p>分页查询是数据库的方言，不同的数据库有不同的实现，MySQL中是LIMIT。</p>
@@ -375,34 +459,6 @@ DELETE FROM 表名 [WHERE 条件];<figure class="highlight plain"><table><tr><td
         <tag>MySQL</tag>
         <tag>数据库</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>基于modbus Tcp协议的实时环境噪声监测</title>
-    <url>/Modbus-Tcp/534b9dc7/</url>
-    <content><![CDATA[<p>基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。</p>
-<a id="more"></a>
-
-<h2 id="Modbus的简单介绍"><a href="#Modbus的简单介绍" class="headerlink" title="Modbus的简单介绍"></a>Modbus的简单介绍</h2><p>Modbus通信协议，是Modicon PLC所制定的资料交换通信接口标准，Modbus异步的硬件架构简单，被使用的比率最高。Modbus Plus同步的协议可以提供高速的通信速度，适合主控制设备间大量资料交换。Modbus/TCP则是因应Ethernet网络的架构，近年来被大量使用的通信协议，也因为其速度及资料传送量远比Modbus Plus更快更大，所以已渐渐取代其功能。</p>
-<p>Modbus通信协议基本上是遵循MasterandSlave的通信步骤，有一方扮演Master角色采取主动询问方式，送出QueryMessage给Slave方，然后由Slave方依据接到的QueryMessage内容准备ResponseMessage回传给Master。即使目前硬件通信已经可以达到双方互相主动通信的能力，但是于Modbus通信协议的规定，必须一方为Master，另一方为Slave不能互换角色。一般使用上，监控系统(HMI)都为Master，PLC、电表、仪表等都为Slave，HMI系统一直PollingSlave的各种relayandregister最新数值，然后做显示及各种逻辑计算及控制调整等处理。</p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目是通过wifi设备 + 噪声设备 + 服务器 实现噪声的实时采集。</p>
-<p>噪声设备：AHAI2001-2型环境噪声检测仪，通过485串口传输消息，根据对应的采集命令，返回相应的消息。</p>
-<img src="/images/modbusTcp/image-20220112114849657.png" alt="image-20220112114849657" style="zoom:25%;" />
-
-<p>wifi设备：HF2211S WIFI Serial Device Server，可以将RS485转为wifi传输。HF2211S串口服务器提供了一种 RS232/RS4852 和 Wi-Fi 协议转换的产品，满足产品串口到无线数据传输的通道的解决方案。</p>
-<img src="/images/modbusTcp/image-20220112114649019.png" alt="image-20220112114649019" style="zoom:50%;" />
-
-<h2 id="基于STA的无线网络"><a href="#基于STA的无线网络" class="headerlink" title="基于STA的无线网络"></a>基于STA的无线网络</h2><p>如下图所示，路由器工作在 AP 模式，本产品和移动设备连接到 AP 下。与此同时，本产品连</p>
-<p>接到用户设备通过 RS232/RS485 接口。在这种网络结构中，整个无线网络可以很容易的被延伸。</p>
-<p><img src="/images/modbusTcp/image-20220112115735373.png" alt="image-20220112115735373"></p>
-<p>在同一网段内，服务器向wifi设备不停的发送指令，wifi设备将信号转为485串口信号发送给采集器。将得到的数据传回服务器，然后做显示及各种逻辑计算。</p>
-<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><p>pom.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.wimpi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jamod<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>相关代码:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> net.wimpi.modbus.ModbusException;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.io.ModbusTCPTransaction;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.msg.*;</span><br><span class="line"><span class="keyword">import</span> net.wimpi.modbus.net.TCPMasterConnection;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.InetAddress;</span><br><span class="line"><span class="keyword">import</span> java.net.UnknownHostException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModbusService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String modbusTcpServerIp = <span class="string">&quot;10.1.0.154&quot;</span>; <span class="comment">// wifi设备ip，端口确认8899</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String daCommand = <span class="string">&quot;04 04 00 00 00 01 31 9F&quot;</span>; <span class="comment">// 采集指令</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            dd();</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        dd();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> modbusTcpServerPort = <span class="number">8899</span>;</span><br><span class="line">        InetAddress inetAddress = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            inetAddress = InetAddress.getByName(modbusTcpServerIp);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 建立连接</span></span><br><span class="line">        TCPMasterConnection connection = <span class="keyword">new</span> TCPMasterConnection(inetAddress);</span><br><span class="line">        connection.setPort(modbusTcpServerPort);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            connection.connect();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (connection.isConnected()) &#123;</span><br><span class="line"><span class="comment">//            System.out.println(&quot;Connected to &quot; + connection.getAddress() + &quot;:&quot; + connection.getPort());</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Unable to connected to &quot;</span> + modbusTcpServerIp + <span class="string">&quot;:&quot;</span> + modbusTcpServerPort);</span><br><span class="line">        &#125;</span><br><span class="line">        ModbusTCPTransaction transaction = <span class="keyword">new</span> ModbusTCPTransaction(connection);</span><br><span class="line"></span><br><span class="line">        daCommand = daCommand.replaceAll(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        String functionCodeStr = daCommand.substring(<span class="number">2</span>, <span class="number">4</span>); <span class="comment">// Modbus寄存器操作命令</span></span><br><span class="line">        Integer deviceId = Integer.valueOf(daCommand.substring(<span class="number">0</span>, <span class="number">2</span>), <span class="number">16</span>); <span class="comment">// 设备Id 01</span></span><br><span class="line">        Integer readAddress = Integer.valueOf(daCommand.substring(<span class="number">4</span>, <span class="number">8</span>), <span class="number">16</span>); <span class="comment">// 读取地址 0000</span></span><br><span class="line">        Integer readLength = Integer.valueOf(daCommand.substring(<span class="number">8</span>, <span class="number">12</span>), <span class="number">16</span>); <span class="comment">// 0001 读取长度，单位WORD（一个WORD=2 bytes）</span></span><br><span class="line">        ModbusRequest request = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;03&quot;</span>.equals(functionCodeStr)) &#123; <span class="comment">// 支持 03，04的读取指令</span></span><br><span class="line">            request = <span class="keyword">new</span> ReadMultipleRegistersRequest(readAddress, readLength);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            request = <span class="keyword">new</span> ReadInputRegistersRequest(readAddress, readLength);</span><br><span class="line">        &#125;</span><br><span class="line">        request.setUnitID(deviceId);</span><br><span class="line">        transaction.setRequest(request);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            transaction.execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ModbusException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;ModbusTcp::Failed to read [&quot;</span> + readAddress + <span class="string">&quot;, &quot;</span> + readLength + <span class="string">&quot;] on [&quot;</span> + modbusTcpServerIp + <span class="string">&quot;:&quot;</span> + modbusTcpServerPort + <span class="string">&quot;]. &quot;</span> + e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 读取返回数据</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;03&quot;</span>.equals(functionCodeStr)) &#123;</span><br><span class="line">            ReadMultipleRegistersResponse response = (ReadMultipleRegistersResponse) transaction.getResponse();</span><br><span class="line">            <span class="keyword">int</span> value = response.getRegisterValue(<span class="number">0</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value: &quot;</span> + value);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ReadInputRegistersResponse response = (ReadInputRegistersResponse) transaction.getResponse();</span><br><span class="line">            <span class="keyword">int</span> value = response.getRegisterValue(<span class="number">0</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value: &quot;</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">            connection.close();</span><br><span class="line"><span class="comment">//            System.out.println(&quot;Connection to &quot; + modbusTcpServerIp + &quot;:&quot; + modbusTcpServerPort + &quot; closed.&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Modbus Tcp</category>
-      </categories>
   </entry>
   <entry>
     <title>MySQL随时记</title>
@@ -566,6 +622,14 @@ DELETE FROM 表名 [WHERE 条件];<figure class="highlight plain"><table><tr><td
       </tags>
   </entry>
   <entry>
+    <title>springBoot</title>
+    <url>/SpringBoot/207b1172/</url>
+    <content><![CDATA[<a id="more"></a>]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+  </entry>
+  <entry>
     <title>了解Zookeeper</title>
     <url>/Zookeeper/219b9110/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>]]></content>
@@ -575,13 +639,5 @@ DELETE FROM 表名 [WHERE 条件];<figure class="highlight plain"><table><tr><td
       <tags>
         <tag>Zookeeper</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>springBoot</title>
-    <url>/SpringBoot/207b1172/</url>
-    <content><![CDATA[<a id="more"></a>]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
   </entry>
 </search>
