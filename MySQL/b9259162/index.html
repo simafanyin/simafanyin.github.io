@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"simafanyin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="MySQL的学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql从入门到精通">
+<meta property="og:url" content="https://simafanyin.github.io/MySQL/b9259162/index.html">
+<meta property="og:site_name" content="司马梵音">
+<meta property="og:description" content="MySQL的学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220607100457682.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220607102009323.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220609162129397.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220609164400699.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220609165711612.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220609165913175.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220609171304104.png">
+<meta property="og:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220609171724347.png">
+<meta property="article:published_time" content="2022-06-07T01:52:21.000Z">
+<meta property="article:modified_time" content="2022-06-09T09:17:25.454Z">
+<meta property="article:author" content="simafanyin">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://simafanyin.github.io/images/learnMySQL/image-20220607100457682.png">
+
+<link rel="canonical" href="https://simafanyin.github.io/MySQL/b9259162/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mysql从入门到精通 | 司马梵音</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">司马梵音</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录我的足迹</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simafanyin.github.io/MySQL/b9259162/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/64x64.ico">
+      <meta itemprop="name" content="simafanyin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="司马梵音">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql从入门到精通
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-07 09:52:21" itemprop="dateCreated datePublished" datetime="2022-06-07T09:52:21+08:00">2022-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-09 17:17:25" itemprop="dateModified" datetime="2022-06-09T17:17:25+08:00">2022-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>MySQL的学习笔记</p>
+<a id="more"></a>
+
+<h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>建立在关系模型基础上，由多张互相连接的二维表组成的数据库。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>1.使用表存储数据，格式统一，便于维护</p>
+<p>2.使用SQL语言操作，标准统一，使用方便。</p>
+<h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><p><img src="/images/learnMySQL/image-20220607100457682.png" alt="image-20220607100457682"></p>
+<p>DBMS：数据库管理系统</p>
+<h2 id="SQL通用语法及分类"><a href="#SQL通用语法及分类" class="headerlink" title="SQL通用语法及分类"></a>SQL通用语法及分类</h2><h3 id="通用语法"><a href="#通用语法" class="headerlink" title="通用语法"></a>通用语法</h3><ol>
+<li>SQL语句可以单行或多行书写，以分号结尾。</li>
+<li>SQL语句可以使用空格 或 缩进，来增加语句的可读性。</li>
+<li>MySQL数据库的SQL语句不区分大小写，关键字建议使用大写。</li>
+<li>注释：<ul>
+<li>单行注释：–注释内容 或 # 注释内容（MySQL特有）</li>
+<li>多行注释： /*注释内容*/</li>
+</ul>
+</li>
+</ol>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><img src="/images/learnMySQL/image-20220607102009323.png" alt="image-20220607102009323"></p>
+<h2 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h2><h3 id="DDL-数据库定义、修改"><a href="#DDL-数据库定义、修改" class="headerlink" title="DDL 数据库定义、修改"></a>DDL 数据库定义、修改</h3><ul>
+<li><p>查询</p>
+<ul>
+<li><p>查询所有数据库</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW DATABASES;</span><br></pre></td></tr></table></figure></li>
+<li><p>查询当前数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DATABASE();</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>创建</p>
+<ul>
+<li>~~~<br>CREATE DATABASE [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 删除</span><br><span class="line"></span><br><span class="line">  * ~~~</span><br><span class="line">    DROP DATABASE [IF EXISTS] 数据库名;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用</p>
+<ul>
+<li>~~~<br>USE 数据库名;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### DDL 数据类型</span><br><span class="line"></span><br><span class="line">![image-20220608143405464](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143405464.png)</span><br><span class="line"></span><br><span class="line">![image-20220608143334006](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143334006.png)</span><br><span class="line"></span><br><span class="line">char 固定长度，性能高，varchar 计算内容，修改其所占空间，性能较差</span><br><span class="line"></span><br><span class="line">![image-20220608143948475](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143948475.png)</span><br><span class="line"></span><br><span class="line">### DDL-表操作</span><br><span class="line"></span><br><span class="line">#### 查找所有表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+SHOW TABLES;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 查询表结构</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DESC 表名;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 查询指定表的建表语句</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+SHOW CREATE TABLE 表名;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 创建表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+CREATE TABLE 表名(<br>字段1，字段1类型[COMMENT 字段1注释],<br>字段2，字段2类型[COMMENT 字段2注释],<br>…<br>)[COMMENT 表注释];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">例如：创建用户表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+CREATE TABLE TB_USER(<br>ID INT COMMENT ‘编号’,<br>NAME VARCHAR(30) COMMENT ‘姓名’,<br>AGE INT,<br>GENDER VARCHAR(1) COMMENT ‘性别’<br>) COMMENT ‘用户表’;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 修改表名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 RENAME [TO] 新表名;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 删除表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DROP TABLE [IF EXISTS] 表名;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+TRUNCATE TABLE 表名<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">TRUNCATE: 删除指定表，并重新创建该表。可以理解为清空表数据。</span><br><span class="line"></span><br><span class="line">#### 添加字段</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 ADD 字段名 类型（长度）[COMMENT 注释][约束];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 修改字段名和字段类型</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型（长度）[COMMENT 注释] [约束];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 MODIFY 字段名 类型（长度）[COMMENT 注释] [约束];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CHANGE, MODIFY 都可以修改字段类型，但MODIFY不能修改列名</span><br><span class="line"></span><br><span class="line">建议：只修改字段类型时使用MODIFY，修改列名时使用CHANGE</span><br><span class="line"></span><br><span class="line">#### 删除字段</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 DROP 字段名;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## DML</span><br><span class="line"></span><br><span class="line">* 添加数据（INSERT）</span><br><span class="line"></span><br><span class="line">* 修改数据（UPDATE）</span><br><span class="line"></span><br><span class="line">* 删除数据（DELETE）</span><br><span class="line"></span><br><span class="line">### 添加数据</span><br><span class="line"></span><br><span class="line">1. 给部分字段添加数据（字段不为null时应在其中）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 (字段1,字段2,…) VALUES (值1,值2,…);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. 给全部字段添加数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 VALUES (值1,值2,…);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 批量添加数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 (字段1,字段2,…) VALUES (值1,值2,…),(值1,值2,…),(值1,值2,…);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 VALUES (值1,值2,…),(值1,值2,…),(值1,值2,…);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 插入数据时，指定的字段顺序需要和值的顺序一一对应。</span><br><span class="line">* 字符串和日期类型数据应该包含在引号中</span><br><span class="line">* 插入的数据大小，应该在字段的规定范围内。</span><br><span class="line"></span><br><span class="line">### 更新数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+UPDATE 表名 SET 字段名1=值1,字段名2=值2,…[WHERE 条件];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 删除数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DELETE FROM 表名 [WHERE 条件];<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## DQL</span><br><span class="line"></span><br><span class="line">![image-20220608155148765](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608155148765.png)</span><br><span class="line"></span><br><span class="line">### 基本查询</span><br><span class="line"></span><br><span class="line">1. 查询多个字段</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> –查询部分数据<br> SELECT 字段1,字段2,… FROM 表名;</p>
+<p> –查询所有<br> SELECT * FROM 表名;</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. 设置别名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段1 [AS 别名1],字段2 [AS 别名2]…FROM 表名;</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 去重</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT DISTINCT 字段列表 FROM 表名;</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 条件查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段列表 FROM 表名 WHERE 条件列表;</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. 条件</span><br><span class="line"></span><br><span class="line">   ![image-20220608161334863](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608161334863.png)</span><br><span class="line"></span><br><span class="line">   其中BETWEEN...AND... 中的值前者为最小值，后者为最大值。顺序不能变。</span><br><span class="line"></span><br><span class="line">   查询名字两位的数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT * FROM emp WHERE NAME LIKE ‘__’;</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 聚合函数</span><br><span class="line"></span><br><span class="line">将一列数据作为一个整体，进行纵向计算</span><br><span class="line"></span><br><span class="line">![image-20220608162814259](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608162814259.png)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>SELECT 聚合函数(字段列表) FROM 表名;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">注：null值不参与聚合函数运算</span><br><span class="line"></span><br><span class="line">### 分组查询</span><br><span class="line"></span><br><span class="line">1. 语法 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>SELECT 字段列表 FORM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. WHERE 和 HAVING 区别</span><br><span class="line">   * 执行时机不同：WHERE 是分组之前进行过滤，不满足WHERE条件，不参与分组；而HAVING是分组之后对结果进行过滤。</span><br><span class="line">   * 判断条件不同：WHERE 中不能对聚合函数进行判断，而HAVING可以。</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line"></span><br><span class="line">* 执行顺序 WHERE &gt; 据合函数 &gt; HAVING</span><br><span class="line">* 分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义。</span><br><span class="line"></span><br><span class="line">### 排序查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式,字段2 排序方式,…;</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   ASC：升序（缺省）</span><br><span class="line"></span><br><span class="line">   DESC：降序</span><br><span class="line"></span><br><span class="line">   注：多字段排序，当第一个字段值相同时，才会根据第二个字段排序。</span><br><span class="line"></span><br><span class="line">### 分页查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数;</p>
+<pre><code></code></pre>
+</li>
+<li><p>起始索引从0开始，起始索引=（查询页码-1) * 每页显示记录数。</p>
+</li>
+<li><p>分页查询是数据库的方言，不同的数据库有不同的实现，MySQL中是LIMIT。</p>
+</li>
+<li><p>如果查询的是第一页数据，起始索引可以省略，直接简写为 LIMIT 10。</p>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3></li>
+</ul>
+<p><img src="/images/learnMySQL/image-20220609162129397.png" alt="image-20220609162129397"></p>
+<h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><p>MySQL中的mysql数据库，存放使用数据库的用户。</p>
+<p><img src="/images/learnMySQL/image-20220609164400699.png" alt="image-20220609164400699"></p>
+<p>‘用户名‘@’主机名’ ：指定唯一的用户。其中 ‘主机名’ 为 % 时，表示用户可以在任意主机访问数据库。</p>
+<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><h4 id="部分权限内容"><a href="#部分权限内容" class="headerlink" title="部分权限内容"></a>部分权限内容</h4><p><img src="/images/learnMySQL/image-20220609165711612.png" alt="image-20220609165711612"></p>
+<h4 id="权限操作"><a href="#权限操作" class="headerlink" title="权限操作"></a>权限操作</h4><p><img src="/images/learnMySQL/image-20220609165913175.png" alt="image-20220609165913175"></p>
+<ul>
+<li>权限列表中 <em>all</em> 表示所有权限。</li>
+<li>多个权限之间，使用逗号分割。</li>
+<li>授权时，数据名和表名可以使用 * 进行通配，表示所有。</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><em>函数</em> 是指一段可以直接被另一段程序调用的程序和代码。</p>
+<h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><p><img src="/images/learnMySQL/image-20220609171304104.png" alt="image-20220609171304104"></p>
+<h3 id="数值函数"><a href="#数值函数" class="headerlink" title="数值函数"></a>数值函数</h3><p><img src="/images/learnMySQL/image-20220609171724347.png" alt="image-20220609171724347"></p>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><h3 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a>流程函数</h3>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>simafanyin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://simafanyin.github.io/MySQL/b9259162/" title="mysql从入门到精通">https://simafanyin.github.io/MySQL/b9259162/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Modbus-Tcp/534b9dc7/" rel="prev" title="基于modbus Tcp协议的实时环境噪声监测">
+      <i class="fa fa-chevron-left"></i> 基于modbus Tcp协议的实时环境噪声监测
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">MySQL数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95%E5%8F%8A%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">SQL通用语法及分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">通用语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDL"><span class="nav-number">3.</span> <span class="nav-text">DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DDL-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9A%E4%B9%89%E3%80%81%E4%BF%AE%E6%94%B9"><span class="nav-number">3.1.</span> <span class="nav-text">DDL 数据库定义、修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">执行顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL"><span class="nav-number">4.</span> <span class="nav-text">DCL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E6%9D%83%E9%99%90%E5%86%85%E5%AE%B9"><span class="nav-number">4.2.1.</span> <span class="nav-text">部分权限内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%93%8D%E4%BD%9C"><span class="nav-number">4.2.2.</span> <span class="nav-text">权限操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%87%BD%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">数值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">日期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%87%BD%E6%95%B0"><span class="nav-number">5.4.</span> <span class="nav-text">流程函数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="simafanyin"
+      src="/images/64x64.ico">
+  <p class="site-author-name" itemprop="name">simafanyin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/simafanyin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;simafanyin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:sima.fanyin@gmail.com" title="E-Mail → mailto:sima.fanyin@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_pv"></span>
+  </span>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">simafanyin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.6' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/self/clicklove.js"></script>

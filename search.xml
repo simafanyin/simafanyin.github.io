@@ -7,9 +7,10 @@
 <a id="more"></a>
 <h2 id="note"><a href="#note" class="headerlink" title="note"></a>note</h2><p>下文中的master, main都是分支名称，可以自定义，本文以本地分支dev，及远程master为例</p>
 <h1 id="本地已有的项目连接远程分支"><a href="#本地已有的项目连接远程分支" class="headerlink" title="本地已有的项目连接远程分支"></a>本地已有的项目连接远程分支</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add origin 远程地址&#x2F;master</span><br></pre></td></tr></table></figure>
-<h1 id="分支上开发，合并分支"><a href="#分支上开发，合并分支" class="headerlink" title="分支上开发，合并分支"></a>分支上开发，合并分支</h1><h2 id="创建-切换本地分支，关联远程分支"><a href="#创建-切换本地分支，关联远程分支" class="headerlink" title="创建/切换本地分支，关联远程分支"></a>创建/切换本地分支，关联远程分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -b 分支名 origin&#x2F;release&#x2F;远程分支</span><br></pre></td></tr></table></figure>
+<h1 id="分支上开发，合并分支"><a href="#分支上开发，合并分支" class="headerlink" title="分支上开发，合并分支"></a>分支上开发，合并分支</h1><h2 id="创建-切换本地分支，关联远程分支"><a href="#创建-切换本地分支，关联远程分支" class="headerlink" title="创建/切换本地分支，关联远程分支"></a>创建/切换本地分支，关联远程分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout -b 分支名 origin&#x2F;release&#x2F;远程分支 &#x2F;&#x2F; 建议分支名与远程分支名相同</span><br></pre></td></tr></table></figure>
 <p>其中git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch dev</span><br><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+<h2 id="将本地分支与远程分支关联"><a href="#将本地分支与远程分支关联" class="headerlink" title="将本地分支与远程分支关联"></a>将本地分支与远程分支关联</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;dev dev</span><br></pre></td></tr></table></figure>
 <h2 id="dev分支的工作完成（代码推送到分支），我们就可以切换回master分支"><a href="#dev分支的工作完成（代码推送到分支），我们就可以切换回master分支" class="headerlink" title="dev分支的工作完成（代码推送到分支），我们就可以切换回master分支"></a>dev分支的工作完成（代码推送到分支），我们就可以切换回master分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
 <h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
 <h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
@@ -25,8 +26,7 @@
 <h2 id="刷新远程分支（刷新）"><a href="#刷新远程分支（刷新）" class="headerlink" title="刷新远程分支（刷新）"></a>刷新远程分支（刷新）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
 <h2 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -a &#x2F;&#x2F; 查看所有分支</span><br><span class="line">git branch -r &#x2F;&#x2F; 查看远程分支</span><br></pre></td></tr></table></figure>
 <h2 id="远程创建分支后，本地查看远程分支没有的情况，需要更新"><a href="#远程创建分支后，本地查看远程分支没有的情况，需要更新" class="headerlink" title="远程创建分支后，本地查看远程分支没有的情况，需要更新"></a>远程创建分支后，本地查看远程分支没有的情况，需要更新</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote update origin --prune</span><br></pre></td></tr></table></figure>
-<h2 id="查看本地分支及追踪的分支"><a href="#查看本地分支及追踪的分支" class="headerlink" title="查看本地分支及追踪的分支"></a>查看本地分支及追踪的分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -vv</span><br></pre></td></tr></table></figure>
-<h2 id="git克隆远程仓库指定分支，并在本地重命名的操作命令是"><a href="#git克隆远程仓库指定分支，并在本地重命名的操作命令是" class="headerlink" title="git克隆远程仓库指定分支，并在本地重命名的操作命令是"></a>git克隆远程仓库指定分支，并在本地重命名的操作命令是</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b &lt;分支名&gt; &lt;远程仓库地址&gt; &lt;本地文件夹名&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="查看本地分支及追踪的分支"><a href="#查看本地分支及追踪的分支" class="headerlink" title="查看本地分支及追踪的分支"></a>查看本地分支及追踪的分支</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -v</span><br></pre></td></tr></table></figure>
 <h2 id="用git-log看看分支历史"><a href="#用git-log看看分支历史" class="headerlink" title="用git log看看分支历史"></a>用git log看看分支历史</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log --graph --pretty&#x3D;oneline --abbrev-commit</span><br><span class="line">git log --pretty&#x3D;oneline</span><br><span class="line">git log</span><br></pre></td></tr></table></figure>
 <h2 id="多个分支，同一功能的提交"><a href="#多个分支，同一功能的提交" class="headerlink" title="多个分支，同一功能的提交"></a>多个分支，同一功能的提交</h2><p>假设这个2个分支是branchA， branchB</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;切换到branchA 然后只修改公共的文件</span><br><span class="line">git checkout branchA</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改完了之后，commit，并记住这一次commit id，记住，只commit公共的文件！</span><br><span class="line">git commit -m &quot;xxxx&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;再切换到branchB</span><br><span class="line">git checkout branchB</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用cherry-pick， merge某一次commit。这里把刚才branchA提交的commit号填上</span><br><span class="line">git cherry-pick commitID</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;然后解决冲突即可</span><br></pre></td></tr></table></figure>]]></content>
@@ -43,6 +43,7 @@
     <content><![CDATA[<h3 id="HEXO创建文件指令"><a href="#HEXO创建文件指令" class="headerlink" title="HEXO创建文件指令"></a>HEXO创建文件指令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [layout] --path ..&#x2F;_posts&#x2F;test&#x2F;h title</span><br></pre></td></tr></table></figure>
 <p>layout: 模板，缺省为_confgi.yml中配置内容 default_layout: post</p>
 <p>-path, -p  文件地址</p>
+<p>h：文件名，后缀可不加，缺省为 .md</p>
 <p>title：文章标题</p>
 <a id="more"></a>
 
@@ -51,6 +52,7 @@
 <p><img src="/images/hexo/image-20211224121834233.png" alt="image-20211224121834233"></p>
 <p><img src="/images/hexo/image-20211224121928029.png" alt="image-20211224121928029"></p>
 <p><img src="/images/hexo/image-20211224121944216.png" alt="image-20211224121944216"></p>
+<h3 id="Typora-破解"><a href="#Typora-破解" class="headerlink" title="Typora 破解"></a>Typora 破解</h3><p>参考地址 <a href="https://www.jianshu.com/p/9008a416d734">https://www.jianshu.com/p/9008a416d734</a></p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -76,50 +78,6 @@
       <categories>
         <category>java</category>
         <category>basic</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对HashMap的理解</title>
-    <url>/java/HashMap/d85f3cec/</url>
-    <content><![CDATA[<p>从存储结构，索引，扩容，put方法，线程安全来简单说明，并讲述相关的如：HashTable，ConcurrentHashMap等</p>
-<a id="more"></a>
-
-<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>jdk1.7中，由数组 + 链表组成，数组是hashMap的主体，链表用于处理哈希冲突。<br>jdk1.8中，由数组 + 链表 + 红黑树组成。红黑树复杂度为O(logn)，链表是O(n)，链表过长会影响hashMap的性能。链表和红黑树在满足一定条件时会进行转换。</p>
-<ul>
-<li>当链表超过8，且数据（数组长度）大于64时，转为红黑树。</li>
-<li>链表超过8，数据长度小于64时，会对数组进行扩容。  </li>
-</ul>
-<p>红黑树需要左旋，右旋，变色来保持平衡，单链不需要。链表不超过8时，链表结构可以保证查询性能，大于8时，使用红黑树提高搜索性能，但新增节点时效率会变慢。</p>
-<h2 id="索引计算"><a href="#索引计算" class="headerlink" title="索引计算"></a>索引计算</h2><p>先根据key值，计算出hashCode值，然后再计算出hash值，通过hash &amp; (length -     1) 计算出下标。<br><code>jdk1.8中异或其右移16位</code><br>jdk1.8中异或其右移16位的值，优化了高位运算的算法，可以在数组长度较小的时候，也可以保证高低bit都参与到hash的计算中，同时不会有太大的开销。<br><code>hash值与length-1相与（hash &amp; (length - 1)）</code><br>数组的长度都是2的n次方，hash &amp; (length - 1)等价于对hash取模，即hash%length，但&amp;比%更高效。<br><code>HashMap数组长度是2的幂次方</code><br>有助于减少hash冲突，不浪费空间。二进制为11111…方便与操作，实际使用中，其构造函数自动将传入的数组大小取最近的2的n次方，大于等于当前传入值。  </p>
-<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>HashMap的容量超过负载因子定义的容量后，数组扩大为原来的2倍，将原来的对象放到新的数组中。<br>1.8中做了优化，元素会在原来的位置，或者在原来位置 + 原Hash表的长度，不需要重新计算hash，只需要看原来的hash中新增的bit是0还是1。0的话索引不变，1的话 + 原哈希表长度。</p>
-<h2 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h2><ul>
-<li>根据key值计算hash值，找到其在数组中的存储的下标  </li>
-<li>判断数组是否为空，调用resize初始化</li>
-<li>没有hash冲突，直接放在对应的数组下标中</li>
-<li>有hash冲突，key存在，则覆盖value</li>
-<li>有hash冲突，key不存在，是红黑树，就将节点挂在树上</li>
-<li>有hash冲突，key不存在，是链表，判断链表是否大于8，如果大于8，数组容量小于64，进行扩容，大于8，数组容量大于64，转为红黑树；否则使用头插法，在链表中加入键值对。</li>
-</ul>
-<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2>]]></content>
-      <categories>
-        <category>java</category>
-        <category>HashMap</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数组的理解</title>
-    <url>/java/%E6%95%B0%E7%BB%84/17fb9b1e/</url>
-    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>数组</category>
       </categories>
       <tags>
         <tag>java</tag>
@@ -193,6 +151,73 @@
       </tags>
   </entry>
   <entry>
+    <title>数组的理解</title>
+    <url>/java/%E6%95%B0%E7%BB%84/17fb9b1e/</url>
+    <content><![CDATA[<h2 id="从内存角度出发"><a href="#从内存角度出发" class="headerlink" title="从内存角度出发"></a>从内存角度出发</h2><p>定义并初始化一个数组时，实际的数组对象被存储在<code>堆（heap）</code>中，通过其引用变量访问。引用变量存放在<code>栈（stack）</code>中。内存提供了<code>2</code>块空间，一个方法被调用时，其内部引用参数变量都存放在<code>栈</code>中，实际对象存放在数据区<code>堆</code>中，方法执行完毕后，对应的<code>栈</code>就直接回收，但<code>堆</code>中的数据，如果被其他引用参数引用，则不会被回收（对象的创建耗资源）。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>数组</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用https发送请求</title>
+    <url>/java/https/b4ec0f74/</url>
+    <content><![CDATA[<p>使用<code>HttpsURLConnection</code>打开链接，使用<code>OutputStream</code>写入请求参数</p>
+<a id="more"></a>
+<h3 id="以发送微信模板为例"><a href="#以发送微信模板为例" class="headerlink" title="以发送微信模板为例"></a>以发送微信模板为例</h3><p>https + JSON 方式传输</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 设置url</span><br><span class="line">String url &#x3D; &quot;https:&#x2F;&#x2F;api.weixin.qq.com&#x2F;cgi-bin&#x2F;message&#x2F;template&#x2F;send?access_token&#x3D;&quot; + accessToken;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打开链接</span><br><span class="line">HttpsURLConnection urlConnection &#x3D;(HttpsURLConnection) new URL(url).openConnection();</span><br><span class="line">&#x2F;&#x2F; 设置post请求方式</span><br><span class="line">urlConnection.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">&#x2F;&#x2F; 设置true，通过http连接，获取其返回数据</span><br><span class="line">urlConnection.setDoOutput(true);</span><br><span class="line">&#x2F;&#x2F; 使用 OutputStream 写入请求参数，其中的jsonString是JSON格式转字符串</span><br><span class="line">urlConnection.getOutputStream().write(jsonString.getBytes(StandardCharsets.UTF_8));</span><br></pre></td></tr></table></figure>
+<h3 id="获取返回消息"><a href="#获取返回消息" class="headerlink" title="获取返回消息"></a>获取返回消息</h3><p>通过<code>InputStream</code>读取返回数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取输入流</span><br><span class="line">InputStream inputstream &#x3D; urlConnection.getInputStream();</span><br><span class="line">StringWriter writer &#x3D; new StringWriter(); &#x2F;&#x2F; 得到返回数据</span><br><span class="line">&#x2F;&#x2F; 读取拷贝输入流数据</span><br><span class="line">IOUtils.copy(inputstream, writer, StandardCharsets.UTF_8);</span><br><span class="line">inputstream.close();</span><br></pre></td></tr></table></figure>
+<p>代码中的 <code>jsonString</code>是JSON格式的。因为约定传输格式为<code>application/json</code>格式，对于不同的传输格式，使用不同的传递参数。对于<code>application/x-www-form-urlencoded</code>这种，代码中<code>jsonString</code>应该是<code>StringBuffer</code>类型。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuffer params &#x3D; new StringBuffer();</span><br><span class="line">params.append(&quot;username&#x3D;&quot;).append(URLEncoder.encode(username, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;password&#x3D;&quot;).append(URLEncoder.encode(password, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;toPhoneNo&#x3D;&quot;).append(URLEncoder.encode(phoneNum, &quot;UTF-8&quot;));</span><br><span class="line">try (OutputStreamWriter out &#x3D; new OutputStreamWriter(urlConnection.getOutputStream(), &quot;UTF-8&quot;)) &#123;</span><br><span class="line">		out.write(params.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取返回数据 <code>urlConnection.getInputStream()</code>会抛出<code>IOException</code>的异常，需要在<code>catch</code>中捕获，并记录日志。</p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>对于实现了<code>Closeable</code>接口的类，引用时可以使用<code>try()</code>包裹，可以自动关闭。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>io</category>
+        <category>https</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对HashMap的理解</title>
+    <url>/java/HashMap/d85f3cec/</url>
+    <content><![CDATA[<p>从存储结构，索引，扩容，put方法，线程安全来简单说明，并讲述相关的如：HashTable，ConcurrentHashMap等</p>
+<a id="more"></a>
+
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>jdk1.7中，由数组 + 链表组成，数组是hashMap的主体，链表用于处理哈希冲突。<br>jdk1.8中，由数组 + 链表 + 红黑树组成。红黑树复杂度为O(logn)，链表是O(n)，链表过长会影响hashMap的性能。链表和红黑树在满足一定条件时会进行转换。</p>
+<ul>
+<li>当链表超过8，且数据（数组长度）大于64时，转为红黑树。</li>
+<li>链表超过8，数据长度小于64时，会对数组进行扩容。  </li>
+</ul>
+<p>红黑树需要左旋，右旋，变色来保持平衡，单链不需要。链表不超过8时，链表结构可以保证查询性能，大于8时，使用红黑树提高搜索性能，但新增节点时效率会变慢。</p>
+<h2 id="索引计算"><a href="#索引计算" class="headerlink" title="索引计算"></a>索引计算</h2><p>先根据key值，计算出hashCode值，然后再计算出hash值，通过hash &amp; (length -     1) 计算出下标。<br><code>jdk1.8中异或其右移16位</code><br>jdk1.8中异或其右移16位的值，优化了高位运算的算法，可以在数组长度较小的时候，也可以保证高低bit都参与到hash的计算中，同时不会有太大的开销。<br><code>hash值与length-1相与（hash &amp; (length - 1)）</code><br>数组的长度都是2的n次方，hash &amp; (length - 1)等价于对hash取模，即hash%length，但&amp;比%更高效。<br><code>HashMap数组长度是2的幂次方</code><br>有助于减少hash冲突，不浪费空间。二进制为11111…方便与操作，实际使用中，其构造函数自动将传入的数组大小取最近的2的n次方，大于等于当前传入值。  </p>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>HashMap的容量超过负载因子定义的容量后，数组扩大为原来的2倍，将原来的对象放到新的数组中。<br>1.8中做了优化，元素会在原来的位置，或者在原来位置 + 原Hash表的长度，不需要重新计算hash，只需要看原来的hash中新增的bit是0还是1。0的话索引不变，1的话 + 原哈希表长度。</p>
+<h2 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h2><ul>
+<li>根据key值计算hash值，找到其在数组中的存储的下标  </li>
+<li>判断数组是否为空，调用resize初始化</li>
+<li>没有hash冲突，直接放在对应的数组下标中</li>
+<li>有hash冲突，key存在，则覆盖value</li>
+<li>有hash冲突，key不存在，是红黑树，就将节点挂在树上</li>
+<li>有hash冲突，key不存在，是链表，判断链表是否大于8，如果大于8，数组容量小于64，进行扩容，大于8，数组容量大于64，转为红黑树；否则使用头插法，在链表中加入键值对。</li>
+</ul>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2>]]></content>
+      <categories>
+        <category>java</category>
+        <category>HashMap</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>mqtt简介</title>
     <url>/Mqtt/d4be2ab7/</url>
     <content><![CDATA[<p>“MQTT 是客户端服务器发布/订阅消息传输协议。它重量轻、开放、简单，并且设计得易于实施。这些特性使其非常适合在许多情况下使用，包括受限环境，例如机器对机器 (M2M) 和物联网 (IoT) 环境中的通信，在这些环境中需要少量代码占用空间和/或网络带宽非常宝贵。 “</p>
@@ -244,6 +269,114 @@
       </tags>
   </entry>
   <entry>
+    <title>mysql从入门到精通</title>
+    <url>/MySQL/b9259162/</url>
+    <content><![CDATA[<p>MySQL的学习笔记</p>
+<a id="more"></a>
+
+<h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>建立在关系模型基础上，由多张互相连接的二维表组成的数据库。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>1.使用表存储数据，格式统一，便于维护</p>
+<p>2.使用SQL语言操作，标准统一，使用方便。</p>
+<h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><p><img src="/images/learnMySQL/image-20220607100457682.png" alt="image-20220607100457682"></p>
+<p>DBMS：数据库管理系统</p>
+<h2 id="SQL通用语法及分类"><a href="#SQL通用语法及分类" class="headerlink" title="SQL通用语法及分类"></a>SQL通用语法及分类</h2><h3 id="通用语法"><a href="#通用语法" class="headerlink" title="通用语法"></a>通用语法</h3><ol>
+<li>SQL语句可以单行或多行书写，以分号结尾。</li>
+<li>SQL语句可以使用空格 或 缩进，来增加语句的可读性。</li>
+<li>MySQL数据库的SQL语句不区分大小写，关键字建议使用大写。</li>
+<li>注释：<ul>
+<li>单行注释：–注释内容 或 # 注释内容（MySQL特有）</li>
+<li>多行注释： /*注释内容*/</li>
+</ul>
+</li>
+</ol>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><img src="/images/learnMySQL/image-20220607102009323.png" alt="image-20220607102009323"></p>
+<h2 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h2><h3 id="DDL-数据库定义、修改"><a href="#DDL-数据库定义、修改" class="headerlink" title="DDL 数据库定义、修改"></a>DDL 数据库定义、修改</h3><ul>
+<li><p>查询</p>
+<ul>
+<li><p>查询所有数据库</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">SHOW DATABASES;</span><br></pre></td></tr></table></figure></li>
+<li><p>查询当前数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT DATABASE();</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>创建</p>
+<ul>
+<li>~~~<br>CREATE DATABASE [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 删除</span><br><span class="line"></span><br><span class="line">  * ~~~</span><br><span class="line">    DROP DATABASE [IF EXISTS] 数据库名;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用</p>
+<ul>
+<li>~~~<br>USE 数据库名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### DDL 数据类型</span><br><span class="line"></span><br><span class="line">![image-20220608143405464](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143405464.png)</span><br><span class="line"></span><br><span class="line">![image-20220608143334006](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143334006.png)</span><br><span class="line"></span><br><span class="line">char 固定长度，性能高，varchar 计算内容，修改其所占空间，性能较差</span><br><span class="line"></span><br><span class="line">![image-20220608143948475](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608143948475.png)</span><br><span class="line"></span><br><span class="line">### DDL-表操作</span><br><span class="line"></span><br><span class="line">#### 查找所有表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+SHOW TABLES;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 查询表结构</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DESC 表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 查询指定表的建表语句</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+SHOW CREATE TABLE 表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 创建表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+CREATE TABLE 表名(<br>字段1，字段1类型[COMMENT 字段1注释],<br>字段2，字段2类型[COMMENT 字段2注释],<br>…<br>)[COMMENT 表注释];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">例如：创建用户表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+CREATE TABLE TB_USER(<br>ID INT COMMENT ‘编号’,<br>NAME VARCHAR(30) COMMENT ‘姓名’,<br>AGE INT,<br>GENDER VARCHAR(1) COMMENT ‘性别’<br>) COMMENT ‘用户表’;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 修改表名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 RENAME [TO] 新表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 删除表</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DROP TABLE [IF EXISTS] 表名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+TRUNCATE TABLE 表名<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">TRUNCATE: 删除指定表，并重新创建该表。可以理解为清空表数据。</span><br><span class="line"></span><br><span class="line">#### 添加字段</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 ADD 字段名 类型（长度）[COMMENT 注释][约束];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 修改字段名和字段类型</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型（长度）[COMMENT 注释] [约束];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 MODIFY 字段名 类型（长度）[COMMENT 注释] [约束];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">CHANGE, MODIFY 都可以修改字段类型，但MODIFY不能修改列名</span><br><span class="line"></span><br><span class="line">建议：只修改字段类型时使用MODIFY，修改列名时使用CHANGE</span><br><span class="line"></span><br><span class="line">#### 删除字段</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ALTER TABLE 表名 DROP 字段名;<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## DML</span><br><span class="line"></span><br><span class="line">* 添加数据（INSERT）</span><br><span class="line"></span><br><span class="line">* 修改数据（UPDATE）</span><br><span class="line"></span><br><span class="line">* 删除数据（DELETE）</span><br><span class="line"></span><br><span class="line">### 添加数据</span><br><span class="line"></span><br><span class="line">1. 给部分字段添加数据（字段不为null时应在其中）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 (字段1,字段2,…) VALUES (值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. 给全部字段添加数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 VALUES (值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">3. 批量添加数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 (字段1,字段2,…) VALUES (值1,值2,…),(值1,值2,…),(值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+INSERT INTO 表名 VALUES (值1,值2,…),(值1,值2,…),(值1,值2,…);<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 插入数据时，指定的字段顺序需要和值的顺序一一对应。</span><br><span class="line">* 字符串和日期类型数据应该包含在引号中</span><br><span class="line">* 插入的数据大小，应该在字段的规定范围内。</span><br><span class="line"></span><br><span class="line">### 更新数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+UPDATE 表名 SET 字段名1=值1,字段名2=值2,…[WHERE 条件];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 删除数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DELETE FROM 表名 [WHERE 条件];<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## DQL</span><br><span class="line"></span><br><span class="line">![image-20220608155148765](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608155148765.png)</span><br><span class="line"></span><br><span class="line">### 基本查询</span><br><span class="line"></span><br><span class="line">1. 查询多个字段</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> –查询部分数据<br> SELECT 字段1,字段2,… FROM 表名;</p>
+<p> –查询所有<br> SELECT * FROM 表名;</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. 设置别名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段1 [AS 别名1],字段2 [AS 别名2]…FROM 表名;</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">3. 去重</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT DISTINCT 字段列表 FROM 表名;</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 条件查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段列表 FROM 表名 WHERE 条件列表;</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. 条件</span><br><span class="line"></span><br><span class="line">   ![image-20220608161334863](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608161334863.png)</span><br><span class="line"></span><br><span class="line">   其中BETWEEN...AND... 中的值前者为最小值，后者为最大值。顺序不能变。</span><br><span class="line"></span><br><span class="line">   查询名字两位的数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT * FROM emp WHERE NAME LIKE ‘__’;</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 聚合函数</span><br><span class="line"></span><br><span class="line">将一列数据作为一个整体，进行纵向计算</span><br><span class="line"></span><br><span class="line">![image-20220608162814259](&#x2F;images&#x2F;learnMySQL&#x2F;image-20220608162814259.png)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>SELECT 聚合函数(字段列表) FROM 表名;</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">注：null值不参与聚合函数运算</span><br><span class="line"></span><br><span class="line">### 分组查询</span><br><span class="line"></span><br><span class="line">1. 语法 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>SELECT 字段列表 FORM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. WHERE 和 HAVING 区别</span><br><span class="line">   * 执行时机不同：WHERE 是分组之前进行过滤，不满足WHERE条件，不参与分组；而HAVING是分组之后对结果进行过滤。</span><br><span class="line">   * 判断条件不同：WHERE 中不能对聚合函数进行判断，而HAVING可以。</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line"></span><br><span class="line">* 执行顺序 WHERE &gt; 据合函数 &gt; HAVING</span><br><span class="line">* 分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义。</span><br><span class="line"></span><br><span class="line">### 排序查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式,字段2 排序方式,…;</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">   ASC：升序（缺省）</span><br><span class="line"></span><br><span class="line">   DESC：降序</span><br><span class="line"></span><br><span class="line">   注：多字段排序，当第一个字段值相同时，才会根据第二个字段排序。</span><br><span class="line"></span><br><span class="line">### 分页查询</span><br><span class="line"></span><br><span class="line">1. 语法</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> SELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数;</p>
+<pre><code></code></pre>
+</li>
+<li><p>起始索引从0开始，起始索引=（查询页码-1) * 每页显示记录数。</p>
+</li>
+<li><p>分页查询是数据库的方言，不同的数据库有不同的实现，MySQL中是LIMIT。</p>
+</li>
+<li><p>如果查询的是第一页数据，起始索引可以省略，直接简写为 LIMIT 10。</p>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3></li>
+</ul>
+<p><img src="/images/learnMySQL/image-20220609162129397.png" alt="image-20220609162129397"></p>
+<h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><p>MySQL中的mysql数据库，存放使用数据库的用户。</p>
+<p><img src="/images/learnMySQL/image-20220609164400699.png" alt="image-20220609164400699"></p>
+<p>‘用户名‘@’主机名’ ：指定唯一的用户。其中 ‘主机名’ 为 % 时，表示用户可以在任意主机访问数据库。</p>
+<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><h4 id="部分权限内容"><a href="#部分权限内容" class="headerlink" title="部分权限内容"></a>部分权限内容</h4><p><img src="/images/learnMySQL/image-20220609165711612.png" alt="image-20220609165711612"></p>
+<h4 id="权限操作"><a href="#权限操作" class="headerlink" title="权限操作"></a>权限操作</h4><p><img src="/images/learnMySQL/image-20220609165913175.png" alt="image-20220609165913175"></p>
+<ul>
+<li>权限列表中 <em>all</em> 表示所有权限。</li>
+<li>多个权限之间，使用逗号分割。</li>
+<li>授权时，数据名和表名可以使用 * 进行通配，表示所有。</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><em>函数</em> 是指一段可以直接被另一段程序调用的程序和代码。</p>
+<h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><p><img src="/images/learnMySQL/image-20220609171304104.png" alt="image-20220609171304104"></p>
+<h3 id="数值函数"><a href="#数值函数" class="headerlink" title="数值函数"></a>数值函数</h3><p><img src="/images/learnMySQL/image-20220609171724347.png" alt="image-20220609171724347"></p>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><h3 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a>流程函数</h3>]]></content>
+      <categories>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于modbus Tcp协议的实时环境噪声监测</title>
     <url>/Modbus-Tcp/534b9dc7/</url>
     <content><![CDATA[<p>基于Modbus Tcp 协议的通讯，一般用于小型设备，短距离的，大批量的快速通讯。</p>
@@ -274,8 +407,9 @@
   <entry>
     <title>MySQL随时记</title>
     <url>/MySQL/f8969840/</url>
-    <content><![CDATA[<h2 id="mysql-int-long-秒，转为timeStamp时间戳"><a href="#mysql-int-long-秒，转为timeStamp时间戳" class="headerlink" title="mysql int/long 秒，转为timeStamp时间戳"></a>mysql int/long 秒，转为timeStamp时间戳</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM_UNIXTIME(time,&#39;%Y-%m-%d %H:%i:%s&#39;)</span><br><span class="line">FROM_UNIXTIME(1517454986,&#39;%Y-%m-%d %H:%i:%s&#39;) &#x2F;&#x2F; 2018-02-01 11:16:26</span><br></pre></td></tr></table></figure>
-<a id="more"></a>]]></content>
+    <content><![CDATA[<p>随手记录MySQL的知识点</p>
+<a id="more"></a>
+<h2 id="mysql-int-long-秒，转为timeStamp时间戳"><a href="#mysql-int-long-秒，转为timeStamp时间戳" class="headerlink" title="mysql int/long 秒，转为timeStamp时间戳"></a>mysql int/long 秒，转为timeStamp时间戳</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM_UNIXTIME(time,&#39;%Y-%m-%d %H:%i:%s&#39;)</span><br><span class="line">FROM_UNIXTIME(1517454986,&#39;%Y-%m-%d %H:%i:%s&#39;) &#x2F;&#x2F; 2018-02-01 11:16:26</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>MySQL</category>
       </categories>
@@ -432,14 +566,6 @@
       </tags>
   </entry>
   <entry>
-    <title>springBoot</title>
-    <url>/SpringBoot/207b1172/</url>
-    <content><![CDATA[<a id="more"></a>]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-  </entry>
-  <entry>
     <title>了解Zookeeper</title>
     <url>/Zookeeper/219b9110/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>]]></content>
@@ -451,26 +577,11 @@
       </tags>
   </entry>
   <entry>
-    <title>使用https发送请求</title>
-    <url>/java/https/b4ec0f74/</url>
-    <content><![CDATA[<p>使用<code>HttpsURLConnection</code>打开链接，使用<code>OutputStream</code>写入请求参数</p>
-<a id="more"></a>
-<h3 id="以发送微信模板为例"><a href="#以发送微信模板为例" class="headerlink" title="以发送微信模板为例"></a>以发送微信模板为例</h3><p>https + JSON 方式传输</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 设置url</span><br><span class="line">String url &#x3D; &quot;https:&#x2F;&#x2F;api.weixin.qq.com&#x2F;cgi-bin&#x2F;message&#x2F;template&#x2F;send?access_token&#x3D;&quot; + accessToken;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打开链接</span><br><span class="line">HttpsURLConnection urlConnection &#x3D;(HttpsURLConnection) new URL(url).openConnection();</span><br><span class="line">&#x2F;&#x2F; 设置post请求方式</span><br><span class="line">urlConnection.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">&#x2F;&#x2F; 设置true，通过http连接，获取其返回数据</span><br><span class="line">urlConnection.setDoOutput(true);</span><br><span class="line">&#x2F;&#x2F; 使用 OutputStream 写入请求参数，其中的jsonString是JSON格式转字符串</span><br><span class="line">urlConnection.getOutputStream().write(jsonString.getBytes(StandardCharsets.UTF_8));</span><br></pre></td></tr></table></figure>
-<h3 id="获取返回消息"><a href="#获取返回消息" class="headerlink" title="获取返回消息"></a>获取返回消息</h3><p>通过<code>InputStream</code>读取返回数据</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 获取输入流</span><br><span class="line">InputStream inputstream &#x3D; urlConnection.getInputStream();</span><br><span class="line">StringWriter writer &#x3D; new StringWriter(); &#x2F;&#x2F; 得到返回数据</span><br><span class="line">&#x2F;&#x2F; 读取拷贝输入流数据</span><br><span class="line">IOUtils.copy(inputstream, writer, StandardCharsets.UTF_8);</span><br><span class="line">inputstream.close();</span><br></pre></td></tr></table></figure>
-<p>代码中的 <code>jsonString</code>是JSON格式的。因为约定传输格式为<code>application/json</code>格式，对于不同的传输格式，使用不同的传递参数。对于<code>application/x-www-form-urlencoded</code>这种，代码中<code>jsonString</code>应该是<code>StringBuffer</code>类型。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuffer params &#x3D; new StringBuffer();</span><br><span class="line">params.append(&quot;username&#x3D;&quot;).append(URLEncoder.encode(username, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;password&#x3D;&quot;).append(URLEncoder.encode(password, &quot;UTF-8&quot;));</span><br><span class="line">params.append(&quot;&amp;toPhoneNo&#x3D;&quot;).append(URLEncoder.encode(phoneNum, &quot;UTF-8&quot;));</span><br><span class="line">try (OutputStreamWriter out &#x3D; new OutputStreamWriter(urlConnection.getOutputStream(), &quot;UTF-8&quot;)) &#123;</span><br><span class="line">		out.write(params.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>获取返回数据 <code>urlConnection.getInputStream()</code>会抛出<code>IOException</code>的异常，需要在<code>catch</code>中捕获，并记录日志。</p>
-<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>对于实现了<code>Closeable</code>接口的类，引用时可以使用<code>try()</code>包裹，可以自动关闭。</p>
-]]></content>
+    <title>springBoot</title>
+    <url>/SpringBoot/207b1172/</url>
+    <content><![CDATA[<a id="more"></a>]]></content>
       <categories>
-        <category>java</category>
-        <category>io</category>
-        <category>https</category>
+        <category>SpringBoot</category>
       </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
   </entry>
 </search>
