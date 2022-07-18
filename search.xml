@@ -451,7 +451,104 @@
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><em>函数</em> 是指一段可以直接被另一段程序调用的程序和代码。</p>
 <h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><p><img src="/images/learnMySQL/image-20220609171304104.png" alt="image-20220609171304104"></p>
 <h3 id="数值函数"><a href="#数值函数" class="headerlink" title="数值函数"></a>数值函数</h3><p><img src="/images/learnMySQL/image-20220609171724347.png" alt="image-20220609171724347"></p>
-<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><h3 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a>流程函数</h3>]]></content>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><p><img src="/images/learnMySQL/image-20220615152946279.png" alt="image-20220615152946279"></p>
+<h4 id="mysql-int-long-秒，转为timeStamp时间戳"><a href="#mysql-int-long-秒，转为timeStamp时间戳" class="headerlink" title="mysql int/long 秒，转为timeStamp时间戳"></a>mysql int/long 秒，转为timeStamp时间戳</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM_UNIXTIME(time,&#39;%Y-%m-%d %H:%i:%s&#39;)</span><br><span class="line">FROM_UNIXTIME(1517454986,&#39;%Y-%m-%d %H:%i:%s&#39;) &#x2F;&#x2F; 2018-02-01 11:16:26</span><br></pre></td></tr></table></figure>
+<h4 id="70天后"><a href="#70天后" class="headerlink" title="70天后"></a>70天后</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT DATE_ADD(NOW(), INTERVAL 70 DAY); &#x2F;&#x2F; 2022-08-24 15:32:53， expr &gt; 0：之后，&lt; 0：之前</span><br></pre></td></tr></table></figure>
+<h3 id="流程函数"><a href="#流程函数" class="headerlink" title="流程函数"></a>流程函数</h3><p><img src="/images/learnMySQL/image-20220615154449646.png" alt="image-20220615154449646"></p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ol>
+<li><p>概念：约束时作用于表中字段上的规则，用于限制存储在表中的数据</p>
+</li>
+<li><p>作用：保证数据库中数据的正确，有效性和完整性。</p>
+</li>
+<li><p>分类：</p>
+<p><img src="/images/learnMySQL/image-20220617153243820.png" alt="image-20220617153243820"></p>
+</li>
+</ol>
+<ul>
+<li>外键约束</li>
+</ul>
+<p><img src="/images/learnMySQL/image-20220617155000324.png" alt="image-20220617155000324"></p>
+<p><img src="/images/learnMySQL/image-20220617155500085.png" alt="image-20220617155500085"></p>
+<p><img src="/images/learnMySQL/image-20220617155650484.png" alt="image-20220617155650484"></p>
+<p>设置删除更新的行为：CASCADE</p>
+<p><img src="/images/learnMySQL/image-20220617160154220.png" alt="image-20220617160154220"></p>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><h3 id="多表关系"><a href="#多表关系" class="headerlink" title="多表关系"></a>多表关系</h3><ul>
+<li>一对多（多对一）</li>
+<li>多对多</li>
+<li>一对一</li>
+</ul>
+<h3 id="多表查询概述"><a href="#多表查询概述" class="headerlink" title="多表查询概述"></a>多表查询概述</h3><h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p><img src="/images/learnMySQL/image-20220712093855408.png" alt="image-20220712093855408"></p>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p><img src="/images/learnMySQL/image-20220617163619456.png" alt="image-20220617163619456"></p>
+<h3 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h3><p>union，union all</p>
+<p><img src="/images/learnMySQL/image-20220617164558596.png" alt="image-20220617164558596"></p>
+<p>将A， B中的查询结果合并，可能有相同的数据</p>
+<ol>
+<li>多张表列数要一致，字段类型也要一致。</li>
+<li>union all 将数据直接合并，union 在合并后去重。</li>
+</ol>
+<h3 id="列子查询"><a href="#列子查询" class="headerlink" title="列子查询"></a>列子查询</h3><p><img src="/images/learnMySQL/image-20220617165523028.png" alt="image-20220617165523028"></p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="事务简介"><a href="#事务简介" class="headerlink" title="事务简介"></a>事务简介</h3><p><strong>事务</strong> 是一组操作的集合，是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或者撤销操作请求，同时成功或者同时失败。</p>
+<p>MySQL缺省自动提交</p>
+<h3 id="事务操作"><a href="#事务操作" class="headerlink" title="事务操作"></a>事务操作</h3><ul>
+<li>查看/设置事务提交方式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT @@AUTOCOMMIT; </span><br><span class="line">SET @@AUTOCOMMIT &#x3D; 0; -- 1:自动提交，0:手动提交，@@:查看当前系统的变量信息</span><br></pre></td></tr></table></figure>
+<ul>
+<li>提交事务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>回滚事务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ROLLBACK;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开启事务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">START TRANSACTION 或者 BEGIN;</span><br></pre></td></tr></table></figure>
+<h3 id="事务四大特性（ACID）"><a href="#事务四大特性（ACID）" class="headerlink" title="事务四大特性（ACID）"></a>事务四大特性（ACID）</h3><p><img src="/images/learnMySQL/image-20220620153750293.png" alt="image-20220620153750293"></p>
+<h3 id="并发事务问题"><a href="#并发事务问题" class="headerlink" title="并发事务问题"></a>并发事务问题</h3><p><img src="/images/learnMySQL/image-20220620154736497.png" alt="image-20220620154736497"></p>
+<h3 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h3><p>解决并发事务问题，考虑其安全性和并发性，串行化级别最高，数据最安全，但效率最低。</p>
+<p><img src="/images/learnMySQL/image-20220620155322556.png" alt="image-20220620155322556"></p>
+<p>串行化：并发时，只允许一个事务执行。</p>
+<p><img src="/images/learnMySQL/image-20220620155457949.png" alt="image-20220620155457949"></p>
+<p><strong><em>注：低版本查看事务级别使用：SELECT @@TX_ISOLATION;</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT @@TX_ISOLATION;</span><br></pre></td></tr></table></figure>
+<p>session: 当前会话有效，global:全局</p>
+<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><h3 id="MySQL体系结构"><a href="#MySQL体系结构" class="headerlink" title="MySQL体系结构"></a>MySQL体系结构</h3><p><img src="/images/learnMySQL/image-20220620162811908.png" alt="image-20220620162811908"></p>
+<p><img src="/images/learnMySQL/image-20220718155244701.png" alt="image-20220718155244701"></p>
+<p>索引(index) 在存储引擎层中</p>
+<h3 id="存储引擎简介"><a href="#存储引擎简介" class="headerlink" title="存储引擎简介"></a>存储引擎简介</h3><p>存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式。存储引擎是基于表的，而不是基于数据库的，不同的表可以设置不同的存储引擎，所以存储引擎也可被称为表类型。缺省InnoDB。</p>
+<p>显示所有的引擎</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SHOW ENGINES;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/learnMySQL/image-20220620163549614.png" alt="image-20220620163549614"></p>
+<h3 id="存储引擎特点"><a href="#存储引擎特点" class="headerlink" title="存储引擎特点"></a>存储引擎特点</h3><h4 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h4><p><img src="/images/learnMySQL/image-20220620164544104.png" alt="image-20220620164544104"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#39;innodb_file_per_table&#39;; &#x2F;&#x2F; ON：每一张表都对应一个表空间文件</span><br></pre></td></tr></table></figure>
+<p><img src="/images/learnMySQL/image-20220620164959464.png" alt="image-20220620164959464"></p>
+<p>Page:最小的操作单元</p>
+<h4 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h4><p><img src="/images/learnMySQL/image-20220620165459049.png" alt="image-20220620165459049"></p>
+<h4 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h4><p><img src="/images/learnMySQL/image-20220620165318260.png" alt="image-20220620165318260"></p>
+<p><img src="/images/learnMySQL/image-20220620165526007.png" alt="image-20220620165526007"></p>
+<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="/images/learnMySQL/image-20220620165640445.png" alt="image-20220620165640445"></p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="索引概述"><a href="#索引概述" class="headerlink" title="索引概述"></a>索引概述</h3><p>索引（index）是帮助MySQL==高效获取数据==的==数据结构==（有序）。</p>
+<p><img src="/images/learnMySQL/image-20220718161224597.png" alt="image-20220718161224597"></p>
+<h3 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h3><p>MySQL的索引再存储引擎层实现，不同存储引擎有不同结构。</p>
+<p><img src="/images/learnMySQL/image-20220718161517143.png" alt="image-20220718161517143"></p>
+<p><img src="/images/learnMySQL/image-20220718161610698.png" alt="image-20220718161610698"></p>
+<p>平时所说的索引，通常指B+树结构组织的索引。</p>
+<ul>
+<li><p>二叉树：每个节点下仅有2个子节点。</p>
+<p>缺点：顺序插入时，会形成链表，层级较深，降低查询效率。</p>
+</li>
+<li><p>红黑树：自平衡的二叉树，解决链表问题。</p>
+<p>缺点：大数据量情况下，层级较深，检索速度慢。</p>
+</li>
+<li><p>B-Tree （==多路==平衡查找树）</p>
+<p>例：最大度数（度数：一个节点的子节点个数）为5的b-tree，每个节点最多存储4个key，5个指针</p>
+<p><em><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">数据结构可视化网站 https://www.cs.usfca.edu/~galles/visualization/Algorithms.html</a></em></p>
+<p><img src="/images/learnMySQL/image-20220718162811413.png" alt="image-20220718162811413"></p>
+</li>
+</ul>
+<h3 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h3><h3 id="索引语法"><a href="#索引语法" class="headerlink" title="索引语法"></a>索引语法</h3><h3 id="SQL性能分析"><a href="#SQL性能分析" class="headerlink" title="SQL性能分析"></a>SQL性能分析</h3><h3 id="索引使用"><a href="#索引使用" class="headerlink" title="索引使用"></a>索引使用</h3><h3 id="索引设计原则"><a href="#索引设计原则" class="headerlink" title="索引设计原则"></a>索引设计原则</h3><h2 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h2><h2 id="视图-存储过程-触发器"><a href="#视图-存储过程-触发器" class="headerlink" title="视图/存储过程/触发器"></a>视图/存储过程/触发器</h2><h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h2 id="InnoDB引擎"><a href="#InnoDB引擎" class="headerlink" title="InnoDB引擎"></a>InnoDB引擎</h2><h2 id="MySQL管理"><a href="#MySQL管理" class="headerlink" title="MySQL管理"></a>MySQL管理</h2>]]></content>
       <categories>
         <category>MySQL</category>
       </categories>
